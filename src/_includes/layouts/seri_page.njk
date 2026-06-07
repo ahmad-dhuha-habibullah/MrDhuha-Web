@@ -1,8 +1,5 @@
 ---
 layout: layouts/base.njk
-title: Series - Mr Dhuha
-page_heading: "Semua Series"
-page_description: "Konten berurutan untuk memahami topik secara mendalam, dari dasar hingga mahir."
 ---
 
 <div class="container mx-auto px-4 lg:px-8 py-12">
@@ -10,6 +7,13 @@ page_description: "Konten berurutan untuk memahami topik secara mendalam, dari d
         <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">{{ page_heading }}</h1>
         <p class="text-lg text-textLight font-serif">{{ page_description }}</p>
     </div>
+
+    {% if content %}
+    <!-- CMS WYSIWYG Content -->
+    <div class="prose prose-lg prose-slate dark:prose-invert max-w-4xl mx-auto mb-16">
+        {{ content | safe }}
+    </div>
+    {% endif %}
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
         {% for item in collections.series %}

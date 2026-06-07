@@ -13,57 +13,67 @@ collections:
     files:
       - label: "Beranda (Home)"
         name: "home"
-        file: "src/index.njk"
+        file: "src/index.md"
         fields:
-          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/base.njk"}
+          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/home.njk"}
           - {label: "SEO Title", name: "title", widget: "string"}
           - {label: "Hero Title", name: "hero_title", widget: "string"}
           - {label: "Hero Subtitle", name: "hero_subtitle", widget: "text"}
+          - {label: "Section: Artikel Terbaru", name: "section_articles_title", widget: "string", default: "Artikel Terbaru"}
+          - {label: "Section: Video Terbaru", name: "section_videos_title", widget: "string", default: "Video Terbaru"}
+          - {label: "Section: Jelajahi Topik", name: "section_topics_title", widget: "string", default: "Jelajahi Topik"}
+          - {label: "Section: Seri Unggulan", name: "section_series_title", widget: "string", default: "Seri Unggulan"}
+          - {label: "Body", name: "body", widget: "markdown", required: false}
       
       - label: "Halaman Artikel"
         name: "articles_page"
-        file: "src/artikel.njk"
+        file: "src/artikel.md"
         fields:
-          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/base.njk"}
+          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/artikel_page.njk"}
           - {label: "SEO Title", name: "title", widget: "string"}
           - {label: "Page Heading", name: "page_heading", widget: "string"}
           - {label: "Page Description", name: "page_description", widget: "text"}
+          - {label: "Body", name: "body", widget: "markdown", required: false}
 
       - label: "Halaman Video"
         name: "videos_page"
-        file: "src/video.njk"
+        file: "src/video.md"
         fields:
-          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/base.njk"}
+          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/video_page.njk"}
           - {label: "SEO Title", name: "title", widget: "string"}
           - {label: "Page Heading", name: "page_heading", widget: "string"}
           - {label: "Page Description", name: "page_description", widget: "text"}
+          - {label: "Body", name: "body", widget: "markdown", required: false}
 
       - label: "Halaman Topik"
         name: "topics_page"
-        file: "src/topik.njk"
+        file: "src/topik.md"
         fields:
-          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/base.njk"}
+          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/topik_page.njk"}
           - {label: "SEO Title", name: "title", widget: "string"}
           - {label: "Page Heading", name: "page_heading", widget: "string"}
           - {label: "Page Description", name: "page_description", widget: "text"}
+          - {label: "Body", name: "body", widget: "markdown", required: false}
 
       - label: "Halaman Series"
         name: "series_page"
-        file: "src/seri.njk"
+        file: "src/seri.md"
         fields:
-          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/base.njk"}
+          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/seri_page.njk"}
           - {label: "SEO Title", name: "title", widget: "string"}
           - {label: "Page Heading", name: "page_heading", widget: "string"}
           - {label: "Page Description", name: "page_description", widget: "text"}
+          - {label: "Body", name: "body", widget: "markdown", required: false}
 
       - label: "Halaman Eksplorasi"
         name: "explorations_page"
-        file: "src/eksplorasi.njk"
+        file: "src/eksplorasi.md"
         fields:
-          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/base.njk"}
+          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/eksplorasi_page.njk"}
           - {label: "SEO Title", name: "title", widget: "string"}
           - {label: "Page Heading", name: "page_heading", widget: "string"}
           - {label: "Page Description", name: "page_description", widget: "text"}
+          - {label: "Body", name: "body", widget: "markdown", required: false}
 
       - label: "Halaman Tentang"
         name: "about_page"

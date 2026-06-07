@@ -1,8 +1,5 @@
 ---
 layout: layouts/base.njk
-title: Beranda - Mr Dhuha
-hero_title: 'Sains. Data. Teknologi.<br>Untuk <span class="text-primary">memahami</span> dunia.'
-hero_subtitle: 'Artikel, video, dan visualisasi yang menjelaskan fenomena alam, teknologi, dan dunia di sekitar kita dengan cara yang sederhana dan bermakna.'
 ---
 {% from "components/macros.njk" import contentCard %}
 
@@ -37,10 +34,17 @@ hero_subtitle: 'Artikel, video, dan visualisasi yang menjelaskan fenomena alam, 
 
 <div class="container mx-auto px-4 lg:px-8 py-16 space-y-20">
     
+    {% if content %}
+    <!-- CMS WYSIWYG Content -->
+    <div class="prose prose-lg prose-slate dark:prose-invert max-w-4xl mx-auto">
+        {{ content | safe }}
+    </div>
+    {% endif %}
+
     <!-- Latest Articles -->
     <section>
         <div class="flex justify-between items-end mb-8">
-            <h2 class="text-2xl font-bold text-text">Artikel Terbaru</h2>
+            <h2 class="text-2xl font-bold text-text">{{ section_articles_title | default("Artikel Terbaru") }}</h2>
             <a href="/artikel/" class="text-sm font-semibold text-primary hover:text-orange-700 flex items-center gap-1">
                 Lihat semua artikel <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
@@ -57,7 +61,7 @@ hero_subtitle: 'Artikel, video, dan visualisasi yang menjelaskan fenomena alam, 
     <!-- Latest Videos -->
     <section>
         <div class="flex justify-between items-end mb-8">
-            <h2 class="text-2xl font-bold text-text">Video Terbaru</h2>
+            <h2 class="text-2xl font-bold text-text">{{ section_videos_title | default("Video Terbaru") }}</h2>
             <a href="/video/" class="text-sm font-semibold text-primary hover:text-orange-700 flex items-center gap-1">
                 Lihat semua video <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
@@ -74,7 +78,7 @@ hero_subtitle: 'Artikel, video, dan visualisasi yang menjelaskan fenomena alam, 
     <!-- Explore Topics -->
     <section>
         <div class="flex justify-between items-end mb-8">
-            <h2 class="text-2xl font-bold text-text">Jelajahi Topik</h2>
+            <h2 class="text-2xl font-bold text-text">{{ section_topics_title | default("Jelajahi Topik") }}</h2>
             <a href="/topik/" class="text-sm font-semibold text-primary hover:text-orange-700 flex items-center gap-1">
                 Lihat semua topik <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
@@ -97,7 +101,7 @@ hero_subtitle: 'Artikel, video, dan visualisasi yang menjelaskan fenomena alam, 
     <!-- Featured Series -->
     <section>
         <div class="flex justify-between items-end mb-8">
-            <h2 class="text-2xl font-bold text-text">Seri Unggulan</h2>
+            <h2 class="text-2xl font-bold text-text">{{ section_series_title | default("Seri Unggulan") }}</h2>
             <a href="/seri/" class="text-sm font-semibold text-primary hover:text-orange-700 flex items-center gap-1">
                 Lihat semua seri <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
@@ -119,6 +123,5 @@ hero_subtitle: 'Artikel, video, dan visualisasi yang menjelaskan fenomena alam, 
             {% endfor %}
         </div>
     </section>
-
 
 </div>

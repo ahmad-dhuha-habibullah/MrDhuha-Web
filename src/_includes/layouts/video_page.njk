@@ -1,14 +1,5 @@
 ---
 layout: layouts/base.njk
-title: Artikel - Mr Dhuha
-page_heading: "Semua Artikel"
-page_description: "Kumpulan artikel sains, teknologi, dan data yang menjelaskan dunia dengan cara sederhana."
-pagination:
-  data: collections.articles
-  size: 6
-  alias: articles
-  reverse: true
-permalink: "artikel/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber + 1 }}/{% endif %}index.html"
 ---
 {% from "components/macros.njk" import contentCard %}
 
@@ -18,16 +9,23 @@ permalink: "artikel/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber +
         <div class="flex items-center gap-2 text-sm text-textLight mb-4">
             <a href="/" class="hover:text-primary">Beranda</a>
             <i data-lucide="chevron-right" class="w-4 h-4"></i>
-            <span class="text-text">Artikel</span>
+            <span class="text-text">Video</span>
         </div>
         <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">{{ page_heading }}</h1>
         <p class="text-lg text-textLight max-w-2xl font-serif">{{ page_description }}</p>
     </div>
 
+    {% if content %}
+    <!-- CMS WYSIWYG Content -->
+    <div class="prose prose-lg prose-slate dark:prose-invert max-w-4xl mx-auto mb-12">
+        {{ content | safe }}
+    </div>
+    {% endif %}
+
     <!-- Content Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-        {% for item in articles %}
-            {{ contentCard(item) }}
+        {% for item in videos %}
+            {{ contentCard(item, true) }}
         {% endfor %}
     </div>
 
