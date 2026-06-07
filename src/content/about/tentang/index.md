@@ -11,8 +11,8 @@ description: Sains bukan hanya untuk para ahli. Sains adalah cara kita memahami 
         <img src="/assets/images/profile.jpg" alt="Mr Dhuha" class="w-full h-full object-cover">
     </div>
     <div>
-        <h2 class="text-2xl font-bold mb-4">Halo! Saya Dhuha.</h2>
-        <p>Saya membuat Mr Dhuha untuk berbagi rasa ingin tahu tentang sains, teknologi, dan dunia lewat tulisan, video, dan data.</p>
+        <h2 class="text-2xl font-bold mb-4">Halo! saya Ahmad Dhuha Habibullah</h2>
+        <p> Sains bukan hanya untuk para ahli. Sains adalah cara kita memahami dunia. Saya membuat Mr Dhuha untuk berbagi rasa ingin tahu tentang sains, teknologi, dan dunia lewat tulisan, video, dan data.</p>
         <p class="mt-4">Ketertarikan saya pada data, alam, dan sistem kompleks membuat saya ingin menjelaskan hal-hal rumit menjadi lebih sederhana dan bermanfaat untuk semua orang.</p>
     </div>
 </div>
