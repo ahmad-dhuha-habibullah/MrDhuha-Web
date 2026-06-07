@@ -1,0 +1,50 @@
+backend:
+  name: github
+  repo: ahmad-dhuha-habibullah/MrDhuha-Web
+  branch: main
+  pkce: true
+
+media_folder: "src/assets/images"
+public_folder: "/assets/images"
+
+collections:
+  - name: "videos"
+    label: "Videos"
+    folder: "src/content/videos"
+    create: true
+    path: "{{slug}}/index"
+    media_folder: ""
+    public_folder: ""
+    fields:
+      - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/video.njk"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
+      - {label: "Thumbnail", name: "thumbnail", widget: "image"}
+      - {label: "Author", name: "author", widget: "string", default: "Mr Dhuha"}
+      - {label: "Topic", name: "topic", widget: "string"}
+      - {label: "Tags", name: "tags", widget: "list"}
+      - {label: "Duration", name: "duration", widget: "string"}
+      - {label: "YouTube ID", name: "youtube", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "articles"
+    label: "Articles"
+    folder: "src/content/articles"
+    create: true
+    path: "{{slug}}/index"
+    media_folder: ""
+    public_folder: ""
+    fields:
+      - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/article.njk"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
+      - {label: "Thumbnail", name: "thumbnail", widget: "image"}
+      - {label: "Image Caption", name: "imageCaption", widget: "string", required: false}
+      - {label: "Series", name: "series", widget: "string", required: false}
+      - {label: "Author", name: "author", widget: "string", default: "Mr Dhuha"}
+      - {label: "Topic", name: "topic", widget: "string"}
+      - {label: "Tags", name: "tags", widget: "list"}
+      - {label: "Reading Time (mins)", name: "readingTime", widget: "number"}
+      - {label: "Body", name: "body", widget: "markdown"}
