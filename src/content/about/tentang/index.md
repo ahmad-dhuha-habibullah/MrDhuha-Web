@@ -6,13 +6,13 @@ permalink: /tentang/
 type: page
 ---
 
-<div class="flex flex-col md:flex-row items-center md:items-start gap-8 mb-10">
-    <div class="w-48 h-48 rounded-full overflow-hidden flex-shrink-0 bg-slate-200 shadow-xl border-4 border-white">
+<div class="flex flex-col md:flex-row items-center gap-8 mb-10">
+    <div class="w-48 h-48 rounded-full overflow-hidden flex-shrink-0 bg-slate-200 shadow-xl border-4 border-surface">
         <img src="/assets/images/profile.jpg" alt="Mr Dhuha" class="w-full h-full object-cover">
     </div>
     <div>
         <h2 class="text-2xl font-bold mb-4">Halo! Saya Dhuha.</h2>
-        <p>Saya membuat Mr Dhuha untuk berbagi rasa ingin tahu tentang sains, teknologi, dan dunia — lewat tulisan, video, dan data.</p>
+        <p>Saya membuat Mr Dhuha untuk berbagi rasa ingin tahu tentang sains, teknologi, dan dunia - lewat tulisan, video, dan data.</p>
         <p class="mt-4">Ketertarikan saya pada data, alam, dan sistem kompleks membuat saya ingin menjelaskan hal-hal rumit menjadi lebih sederhana dan bermanfaat untuk semua orang.</p>
     </div>
 </div>
@@ -27,7 +27,7 @@ Saya bekerja di bidang meteorologi, rekayasa, dan teknologi. Ketertarikan saya m
 
 ### Apa yang Anda temukan di sini?
 
-Artikel populer, video penjelasan, visualisasi data, dan eksplorasi interaktif — semuanya dibuat untuk membantu kamu memahami dunia dengan cara yang menyenangkan.
+Artikel populer, video penjelasan, visualisasi data, dan eksplorasi interaktif - semuanya dibuat untuk membantu kamu memahami dunia dengan cara yang menyenangkan.
 
 ---
 

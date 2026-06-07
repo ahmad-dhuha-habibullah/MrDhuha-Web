@@ -125,13 +125,12 @@
 
         // Dark Mode Toggle
         const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeToggleIcon = themeToggleBtn.querySelector('i');
         
         function updateThemeIcon() {
             if (document.documentElement.getAttribute('data-theme') === 'dark') {
-                themeToggleIcon.setAttribute('data-lucide', 'sun');
+                themeToggleBtn.innerHTML = '<i data-lucide="sun" class="w-5 h-5"></i>';
             } else {
-                themeToggleIcon.setAttribute('data-lucide', 'moon');
+                themeToggleBtn.innerHTML = '<i data-lucide="moon" class="w-5 h-5"></i>';
             }
             lucide.createIcons();
         }

@@ -11,7 +11,7 @@ tags: ["sains", "air", "lingkungan"]
 readingTime: 6
 ---
 
-Air menutupi sekitar 71% permukaan Bumi. Namun, jumlah total air di planet ini sebenarnya tidak pernah berubah—ia hanya bergerak.
+Air menutupi sekitar 71% permukaan Bumi. Namun, jumlah total air di planet ini sebenarnya tidak pernah berubah - ia hanya bergerak.
 
 ### Evaporasi dan Transpirasi
 Panas matahari mengubah air cair dari laut, danau, dan sungai menjadi uap air. Tumbuhan juga melepaskan uap air ke atmosfer lewat proses transpirasi.

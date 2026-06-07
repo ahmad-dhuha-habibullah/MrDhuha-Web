@@ -5,10 +5,12 @@ title: Beranda - Mr Dhuha
 {% from "components/macros.njk" import contentCard %}
 
 <!-- Hero Section -->
-<section class="bg-[#F8FAFC] py-16 lg:py-24 border-b border-border relative overflow-hidden">
+<section class="bg-surface py-16 lg:py-24 border-b border-border relative overflow-hidden">
     <!-- Background Image -->
     <div class="absolute inset-0 z-0">
-        <img src="/assets/images/hero.jpg" alt="Background" class="w-full h-full object-cover opacity-20 mix-blend-multiply">
+        <img src="/assets/images/hero.jpg" alt="Background" class="w-full h-full object-cover dark:opacity-80">
+        <!-- Left-to-Right Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-surface via-surface/95 via-40% to-transparent"></div>
     </div>
     
     <div class="container mx-auto px-4 lg:px-8 relative z-10">
