@@ -1,7 +1,7 @@
 ---
 title: "Apa Itu ENSO?"
 description: "Fenomena El Nino dan La Nina yang mempengaruhi cuaca di Indonesia."
-date: 2026-06-02
+date: 2021-06-02
 thumbnail: "./enso.jpg"
 author: "Mr Dhuha"
 series: "Belajar Iklim"
