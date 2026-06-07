@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: ahmad-dhuha-habibullah/MrDhuha-Web
-  branch: main
+  branch: add-sveltia-cms
   pkce: true
 
 media_folder: "src/assets/images"
