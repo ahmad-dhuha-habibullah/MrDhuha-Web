@@ -4,6 +4,7 @@ module.exports = function(eleventyConfig) {
   // Passthrough copy for images and CSS
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/favicon.ico");
+  eleventyConfig.addPassthroughCopy("src/admin");
   
   // Colocate images in content directories
   eleventyConfig.addPassthroughCopy("src/content/**/*.{jpg,jpeg,png,gif,svg}");
