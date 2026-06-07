@@ -1,5 +1,5 @@
 {% macro contentCard(item, isVideo=false) %}
-<article class="bg-white rounded-xl border border-border overflow-hidden card-hover flex flex-col h-full">
+<article class="bg-surface rounded-xl border border-border overflow-hidden card-hover flex flex-col h-full">
     <a href="{{ item.url }}" class="block relative aspect-[16/9] overflow-hidden bg-gray-100 group">
         {% if item.data.thumbnail %}
             <img src="{{ item.data.thumbnail | resolveAsset(item.url) }}" alt="{{ item.data.title }}" class="object-cover w-full h-full">
@@ -16,7 +16,7 @@
             </div>
         {% else %}
             {% if item.data.topic %}
-            <div class="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm text-primary text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
+            <div class="absolute bottom-2 right-2 bg-surface/90 backdrop-blur-sm text-primary text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
                 {{ item.data.topic }}
             </div>
             {% endif %}

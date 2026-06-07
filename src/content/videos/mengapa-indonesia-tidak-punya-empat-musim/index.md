@@ -7,7 +7,7 @@ author: "Mr Dhuha"
 topic: "Cuaca & Iklim"
 tags: ["iklim", "musim", "geografi"]
 duration: "10:24"
-youtube: "dQw4w9WgXcQ"
+youtube: "BYM94ouI4LE"
 layout: layouts/video.njk
 ---
 

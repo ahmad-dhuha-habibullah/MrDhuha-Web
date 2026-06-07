@@ -10,7 +10,7 @@ layout: layouts/base.njk
             <h1 class="text-4xl md:text-5xl font-extrabold mb-6">{{ title }}</h1>
             <p class="text-xl text-gray-300 font-serif leading-relaxed mb-8">{{ description }}</p>
             <div class="flex items-center gap-4 text-sm text-gray-400">
-                <span class="bg-white/10 px-3 py-1 rounded-full">{{ stats }}</span>
+                <span class="bg-surface/10 px-3 py-1 rounded-full">{{ stats }}</span>
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@ layout: layouts/base.njk
             {% set step = 1 %}
             {% for item in collections.articles %}
                 {% if item.data.series == title %}
-                <div class="flex gap-6 group bg-white border border-border p-6 rounded-2xl hover:shadow-lg transition-shadow">
+                <div class="flex gap-6 group bg-surface border border-border p-6 rounded-2xl hover:shadow-lg transition-shadow">
                     <div class="w-12 h-12 rounded-full bg-blue-50 text-primary font-bold flex items-center justify-center flex-shrink-0 text-xl border border-blue-100 group-hover:bg-primary group-hover:text-white transition-colors">
                         {{ step }}
                     </div>
@@ -46,7 +46,7 @@ layout: layouts/base.njk
 
             {% for item in collections.videos %}
                 {% if item.data.series == title %}
-                <div class="flex gap-6 group bg-white border border-border p-6 rounded-2xl hover:shadow-lg transition-shadow">
+                <div class="flex gap-6 group bg-surface border border-border p-6 rounded-2xl hover:shadow-lg transition-shadow">
                     <div class="w-12 h-12 rounded-full bg-orange-50 text-orange-600 font-bold flex items-center justify-center flex-shrink-0 text-xl border border-orange-100 group-hover:bg-orange-600 group-hover:text-white transition-colors">
                         {{ step }}
                     </div>
