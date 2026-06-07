@@ -1,14 +1,18 @@
 ---
-title: "Apa Itu ENSO?"
-description: "Fenomena El Nino dan La Nina yang mempengaruhi cuaca di Indonesia."
-date: 2021-06-02
-thumbnail: "./enso.jpg"
-author: "Mr Dhuha"
-series: "Belajar Iklim"
-topic: "Iklim"
-tags: ["iklim", "enso", "el nino"]
-readingTime: 7
 layout: layouts/article.njk
+title: Apa Itu ENSO?
+description: Fenomena El Nino dan La Nina yang mempengaruhi cuaca di Indonesia.
+date: 2021-06-02
+thumbnail: /assets/images/Hero Section Hanif.png
+imageCaption: ''
+series: Belajar Iklim
+author: Mr Dhuha
+topic: Iklim
+tags:
+  - iklim
+  - enso
+  - el nino
+readingTime: 7
 ---
 
 ENSO (El Niño-Southern Oscillation) adalah pola iklim berulang yang melibatkan perubahan suhu perairan di tengah dan timur Samudra Pasifik ekuator.

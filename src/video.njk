@@ -1,6 +1,8 @@
 ---
 layout: layouts/base.njk
 title: Video - Mr Dhuha
+page_heading: "Semua Video"
+page_description: "Kumpulan video penjelasan sains dan data untuk memudahkan pemahaman Anda."
 pagination:
   data: collections.videos
   size: 6
@@ -18,8 +20,8 @@ permalink: "video/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber + 1
             <i data-lucide="chevron-right" class="w-4 h-4"></i>
             <span class="text-text">Video</span>
         </div>
-        <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">Semua Video</h1>
-        <p class="text-lg text-textLight max-w-2xl font-serif">Kumpulan video penjelasan sains dan data untuk memudahkan pemahaman Anda.</p>
+        <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">{{ page_heading }}</h1>
+        <p class="text-lg text-textLight max-w-2xl font-serif">{{ page_description }}</p>
     </div>
 
     <!-- Content Grid -->

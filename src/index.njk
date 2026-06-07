@@ -1,6 +1,8 @@
 ---
 layout: layouts/base.njk
 title: Beranda - Mr Dhuha
+hero_title: 'Sains. Data. Teknologi.<br>Untuk <span class="text-primary">memahami</span> dunia.'
+hero_subtitle: 'Artikel, video, dan visualisasi yang menjelaskan fenomena alam, teknologi, dan dunia di sekitar kita dengan cara yang sederhana dan bermakna.'
 ---
 {% from "components/macros.njk" import contentCard %}
 
@@ -16,10 +18,10 @@ title: Beranda - Mr Dhuha
     <div class="container mx-auto px-4 lg:px-8 relative z-10">
         <div class="max-w-3xl">
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-text leading-tight mb-6 tracking-tight drop-shadow-sm">
-                Sains. Data. Teknologi.<br>Untuk <span class="text-primary">memahami</span> dunia.
+                {{ hero_title | safe }}
             </h1>
             <p class="text-lg md:text-xl text-textLight mb-8 max-w-2xl font-serif">
-                Artikel, video, dan visualisasi yang menjelaskan fenomena alam, teknologi, dan dunia di sekitar kita dengan cara yang sederhana dan bermakna.
+                {{ hero_subtitle }}
             </p>
             <div class="flex flex-wrap gap-4">
                 <a href="/artikel/" class="bg-primary hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center gap-2 shadow-lg">

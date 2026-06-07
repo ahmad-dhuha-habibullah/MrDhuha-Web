@@ -1,6 +1,8 @@
 ---
 layout: layouts/base.njk
 title: Artikel - Mr Dhuha
+page_heading: "Semua Artikel"
+page_description: "Kumpulan artikel sains, teknologi, dan data yang menjelaskan dunia dengan cara sederhana."
 pagination:
   data: collections.articles
   size: 6
@@ -18,8 +20,8 @@ permalink: "artikel/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber +
             <i data-lucide="chevron-right" class="w-4 h-4"></i>
             <span class="text-text">Artikel</span>
         </div>
-        <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">Semua Artikel</h1>
-        <p class="text-lg text-textLight max-w-2xl font-serif">Kumpulan artikel sains, teknologi, dan data yang menjelaskan dunia dengan cara sederhana.</p>
+        <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">{{ page_heading }}</h1>
+        <p class="text-lg text-textLight max-w-2xl font-serif">{{ page_description }}</p>
     </div>
 
     <!-- Content Grid -->

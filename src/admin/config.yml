@@ -8,6 +8,74 @@ media_folder: "src/assets/images"
 public_folder: "/assets/images"
 
 collections:
+  - name: "pages"
+    label: "Halaman Statis"
+    files:
+      - label: "Beranda (Home)"
+        name: "home"
+        file: "src/index.njk"
+        fields:
+          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/base.njk"}
+          - {label: "SEO Title", name: "title", widget: "string"}
+          - {label: "Hero Title", name: "hero_title", widget: "string"}
+          - {label: "Hero Subtitle", name: "hero_subtitle", widget: "text"}
+      
+      - label: "Halaman Artikel"
+        name: "articles_page"
+        file: "src/artikel.njk"
+        fields:
+          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/base.njk"}
+          - {label: "SEO Title", name: "title", widget: "string"}
+          - {label: "Page Heading", name: "page_heading", widget: "string"}
+          - {label: "Page Description", name: "page_description", widget: "text"}
+
+      - label: "Halaman Video"
+        name: "videos_page"
+        file: "src/video.njk"
+        fields:
+          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/base.njk"}
+          - {label: "SEO Title", name: "title", widget: "string"}
+          - {label: "Page Heading", name: "page_heading", widget: "string"}
+          - {label: "Page Description", name: "page_description", widget: "text"}
+
+      - label: "Halaman Topik"
+        name: "topics_page"
+        file: "src/topik.njk"
+        fields:
+          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/base.njk"}
+          - {label: "SEO Title", name: "title", widget: "string"}
+          - {label: "Page Heading", name: "page_heading", widget: "string"}
+          - {label: "Page Description", name: "page_description", widget: "text"}
+
+      - label: "Halaman Series"
+        name: "series_page"
+        file: "src/seri.njk"
+        fields:
+          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/base.njk"}
+          - {label: "SEO Title", name: "title", widget: "string"}
+          - {label: "Page Heading", name: "page_heading", widget: "string"}
+          - {label: "Page Description", name: "page_description", widget: "text"}
+
+      - label: "Halaman Eksplorasi"
+        name: "explorations_page"
+        file: "src/eksplorasi.njk"
+        fields:
+          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/base.njk"}
+          - {label: "SEO Title", name: "title", widget: "string"}
+          - {label: "Page Heading", name: "page_heading", widget: "string"}
+          - {label: "Page Description", name: "page_description", widget: "text"}
+
+      - label: "Halaman Tentang"
+        name: "about_page"
+        file: "src/content/about/tentang/index.md"
+        fields:
+          - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/article.njk"}
+          - {label: "Permalink", name: "permalink", widget: "hidden", default: "/tentang/"}
+          - {label: "Type", name: "type", widget: "hidden", default: "page"}
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Description", name: "description", widget: "text"}
+          - {label: "Body", name: "body", widget: "markdown"}
+
   - name: "videos"
     label: "Videos"
     folder: "src/content/videos"
