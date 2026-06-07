@@ -1,8 +1,6 @@
 const { DateTime } = require("luxon");
 
 module.exports = function(eleventyConfig) {
-  // Passthrough for netlify decap CMS
-  eleventyConfig.addPassthroughCopy("src/admin");
   // Passthrough copy for images and CSS
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/favicon.ico");
