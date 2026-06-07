@@ -1,0 +1,48 @@
+---
+layout: layouts/base.njk
+title: Artikel - Mr Dhuha
+pagination:
+  data: collections.articles
+  size: 6
+  alias: articles
+  reverse: true
+permalink: "artikel/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber + 1 }}/{% endif %}index.html"
+---
+{% from "components/macros.njk" import contentCard %}
+
+<div class="container mx-auto px-4 lg:px-8 py-12">
+    <!-- Page Header -->
+    <div class="mb-12">
+        <div class="flex items-center gap-2 text-sm text-textLight mb-4">
+            <a href="/" class="hover:text-primary">Beranda</a>
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            <span class="text-text">Artikel</span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">Semua Artikel</h1>
+        <p class="text-lg text-textLight max-w-2xl font-serif">Kumpulan artikel sains, teknologi, dan data yang menjelaskan dunia dengan cara sederhana.</p>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        {% for item in articles %}
+            {{ contentCard(item) }}
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if pagination.hrefs.length > 1 %}
+    <div class="flex justify-center items-center gap-2 mt-8">
+        {% if pagination.href.previous %}
+            <a href="{{ pagination.href.previous }}" class="px-4 py-2 border border-border rounded-lg hover:bg-gray-50 text-text font-medium transition-colors">Sebelumnya</a>
+        {% endif %}
+        
+        <div class="px-4 py-2 text-textLight">
+            Halaman {{ pagination.pageNumber + 1 }} dari {{ pagination.hrefs.length }}
+        </div>
+        
+        {% if pagination.href.next %}
+            <a href="{{ pagination.href.next }}" class="px-4 py-2 border border-border rounded-lg hover:bg-gray-50 text-text font-medium transition-colors">Selanjutnya</a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>

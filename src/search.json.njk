@@ -1,0 +1,23 @@
+---
+permalink: /search.json
+---
+[
+  {% for item in collections.articles %}
+  {
+    "title": "{{ item.data.title | replace('"', '\\"') }}",
+    "url": "{{ item.url }}",
+    "type": "Artikel",
+    "topic": "{{ item.data.topic }}",
+    "description": "{{ item.data.description | replace('"', '\\"') }}"
+  }{% if not loop.last or collections.videos.length > 0 %},{% endif %}
+  {% endfor %}
+  {% for item in collections.videos %}
+  {
+    "title": "{{ item.data.title | replace('"', '\\"') }}",
+    "url": "{{ item.url }}",
+    "type": "Video",
+    "topic": "{{ item.data.topic }}",
+    "description": "{{ item.data.description | replace('"', '\\"') }}"
+  }{% if not loop.last %},{% endif %}
+  {% endfor %}
+]

@@ -1,0 +1,39 @@
+---
+layout: layouts/base.njk
+title: Eksplorasi - Mr Dhuha
+---
+
+<div class="container mx-auto px-4 lg:px-8 py-12">
+    <div class="mb-12">
+        <div class="flex items-center gap-2 text-sm text-textLight mb-4">
+            <a href="/" class="hover:text-primary">Beranda</a>
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            <span class="text-text">Eksplorasi</span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">Eksplorasi</h1>
+        <p class="text-lg text-textLight max-w-2xl font-serif">Temukan data, visualisasi interaktif, infografik, dan simulasi untuk memahami dunia lebih dalam.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for item in collections.explorations %}
+            <article class="bg-white border border-border rounded-xl overflow-hidden hover:shadow-lg transition-shadow group">
+                <a href="{{ item.url }}" class="block relative aspect-video bg-gray-100 overflow-hidden">
+                    {% if item.data.thumbnail %}
+                    <img src="{{ item.data.thumbnail | resolveAsset(item.url) }}" alt="{{ item.data.title }}" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
+                    {% endif %}
+                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded text-xs font-bold text-primary uppercase tracking-wider">
+                        {{ item.data.type | default('Eksplorasi') }}
+                    </div>
+                </a>
+                <div class="p-5">
+                    <a href="{{ item.url }}" class="block group-hover:text-primary transition-colors">
+                        <h3 class="font-bold text-lg leading-snug mb-2">{{ item.data.title }}</h3>
+                    </a>
+                    <p class="text-sm text-textLight">{{ item.data.description | default('') | truncate(80) }}</p>
+                </div>
+            </article>
+        {% else %}
+            <p class="text-textLight">Belum ada eksplorasi yang ditambahkan.</p>
+        {% endfor %}
+    </div>
+</div>

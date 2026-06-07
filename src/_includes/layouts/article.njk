@@ -1,0 +1,83 @@
+---
+layout: layouts/base.njk
+---
+<article class="container mx-auto px-4 lg:px-8 py-12 max-w-4xl">
+    <!-- Breadcrumbs -->
+    <div class="flex items-center gap-2 text-sm text-textLight mb-8">
+        <a href="/" class="hover:text-primary">Beranda</a>
+        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        <a href="/artikel/" class="hover:text-primary">Artikel</a>
+        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        <span class="text-text truncate">{{ title }}</span>
+    </div>
+
+    <!-- Article Header -->
+    <header class="mb-10 text-center md:text-left">
+        {% if series %}
+            <a href="/seri/{{ series | slugify }}/" class="inline-block bg-blue-100 text-blue-800 text-xs font-bold uppercase tracking-wider py-1 px-3 rounded-full mb-4 hover:bg-blue-200 transition-colors">Series: {{ series }}</a>
+        {% elif topic %}
+            <a href="/topik/{{ topic | slugify }}/" class="inline-block bg-orange-100 text-primary text-xs font-bold uppercase tracking-wider py-1 px-3 rounded-full mb-4 hover:bg-orange-200 transition-colors">{{ topic }}</a>
+        {% endif %}
+        <h1 class="text-3xl md:text-5xl font-extrabold text-text leading-tight mb-6">{{ title }}</h1>
+        
+        {% if type != 'page' %}
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 border-y border-border py-4">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-gray-200 rounded-full overflow-hidden">
+                    <img src="/assets/images/profile.jpg" alt="{{ author | default('Mr Dhuha') }}" class="w-full h-full object-cover">
+                </div>
+                <div class="text-left">
+                    <a href="/tentang/" class="font-semibold text-text hover:text-primary transition-colors">{{ author | default('Mr Dhuha') }}</a>
+                    <div class="text-sm text-textLight">{{ date | readableDate }} &middot; {{ readingTime | default('5') }} menit baca</div>
+                </div>
+            </div>
+            
+            <div class="flex gap-2">
+                <button onclick="window.openShareModal()" class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-text border border-border rounded-lg hover:bg-gray-50 transition-colors">
+                    <i data-lucide="share-2" class="w-4 h-4"></i> Bagikan
+                </button>
+                <button onclick="toggleBookmark('{{ page.url }}', '{{ title | escape }}')" class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-text border border-border rounded-lg hover:bg-gray-50 transition-colors">
+                    <i data-lucide="bookmark" class="w-4 h-4" id="bookmarkIcon"></i> <span id="bookmarkText">Simpan</span>
+                </button>
+            </div>
+        </div>
+        {% endif %}
+    </header>
+
+    <!-- Featured Image -->
+    {% if thumbnail %}
+    <div class="relative w-full bg-slate-900 rounded-xl overflow-hidden shadow-lg mb-12">
+        <img src="{{ thumbnail | resolveAsset(page.url) }}" alt="{{ title }}" class="w-full object-cover max-h-[500px]">
+        {% if imageCaption %}
+        <figcaption class="text-center text-sm text-textLight mt-3 font-serif italic">{{ imageCaption }}</figcaption>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Article Body (Single Column per PRD) -->
+    <div class="article-content max-w-3xl mx-auto">
+        {{ content | safe }}
+    </div>
+
+    <!-- Related Articles / Related Videos -->
+    <div class="mt-16 pt-8 border-t border-border max-w-3xl mx-auto">
+        <h3 class="font-bold text-2xl mb-6">Baca Juga</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% set relatedCount = 0 %}
+            {% for item in collections.articles %}
+                {% if item.url != page.url and relatedCount < 4 %}
+                    <a href="{{ item.url }}" class="group flex gap-4 items-start">
+                        {% if item.data.thumbnail %}
+                        <img src="{{ item.data.thumbnail | resolveAsset(item.url) }}" class="w-24 h-20 object-cover rounded-lg bg-gray-100 flex-shrink-0">
+                        {% endif %}
+                        <div>
+                            <h4 class="text-base font-bold leading-tight group-hover:text-primary transition-colors mb-2">{{ item.data.title }}</h4>
+                            <span class="text-sm text-textLight">{{ item.data.readingTime | default('5') }} menit baca</span>
+                        </div>
+                    </a>
+                    {% set relatedCount = relatedCount + 1 %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</article>

@@ -1,0 +1,48 @@
+{% macro contentCard(item, isVideo=false) %}
+<article class="bg-white rounded-xl border border-border overflow-hidden card-hover flex flex-col h-full">
+    <a href="{{ item.url }}" class="block relative aspect-[16/9] overflow-hidden bg-gray-100 group">
+        {% if item.data.thumbnail %}
+            <img src="{{ item.data.thumbnail | resolveAsset(item.url) }}" alt="{{ item.data.title }}" class="object-cover w-full h-full">
+        {% endif %}
+        
+        {% if isVideo %}
+            <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                <div class="w-12 h-12 bg-black/60 rounded-full flex items-center justify-center backdrop-blur-sm">
+                    <i data-lucide="play" class="w-5 h-5 text-white ml-1"></i>
+                </div>
+            </div>
+            <div class="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] font-bold px-2 py-1 rounded">
+                {{ item.data.duration | default('Video') }}
+            </div>
+        {% else %}
+            {% if item.data.topic %}
+            <div class="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm text-primary text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
+                {{ item.data.topic }}
+            </div>
+            {% endif %}
+        {% endif %}
+    </a>
+    
+    <div class="p-5 flex flex-col flex-grow">
+        {% if not isVideo and item.data.topic %}
+            <a href="/topik/{{ item.data.topic | slugify }}/" class="text-xs font-bold text-primary uppercase tracking-wider mb-2 hover:underline">{{ item.data.topic }}</a>
+        {% endif %}
+        
+        <a href="{{ item.url }}" class="block group">
+            <h3 class="font-bold text-lg leading-snug mb-3 text-text group-hover:text-primary transition-colors">{{ item.data.title }}</h3>
+        </a>
+        
+        <div class="mt-auto flex items-center justify-between text-sm text-textLight">
+            <span class="flex items-center gap-1">
+                <i data-lucide="{% if isVideo %}calendar{% else %}clock{% endif %}" class="w-4 h-4"></i>
+                {% if isVideo %}
+                    {{ item.date | readableDate }}
+                {% else %}
+                    {{ item.data.readingTime | default('5') }} menit baca &middot; {{ item.date | readableDate }}
+                {% endif %}
+            </span>
+            <button class="hover:text-primary z-10 relative" aria-label="Simpan" onclick="event.preventDefault(); toggleBookmark('{{ item.url }}', '{{ item.data.title | escape }}')"><i data-lucide="bookmark" class="w-4 h-4"></i></button>
+        </div>
+    </div>
+</article>
+{% endmacro %}

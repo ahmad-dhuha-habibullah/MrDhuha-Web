@@ -1,0 +1,111 @@
+<!-- Share Modal Component -->
+<div id="shareModal" class="fixed inset-0 z-[100] hidden">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="shareModalBackdrop"></div>
+    
+    <!-- Modal Content -->
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 transition-all scale-95 opacity-0" id="shareModalCard">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-xl font-bold text-text">Bagikan Konten</h3>
+            <button id="closeShareModal" class="text-textLight hover:text-text bg-slate-100 hover:bg-slate-200 rounded-full p-2 transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        
+        <div class="grid grid-cols-4 gap-4 mb-6">
+            <a id="shareWa" href="#" target="_blank" class="flex flex-col items-center gap-2 group">
+                <div class="w-14 h-14 rounded-full bg-green-100 text-green-600 flex items-center justify-center group-hover:bg-green-500 group-hover:text-white transition-colors">
+                    <i data-lucide="message-circle" class="w-6 h-6"></i>
+                </div>
+                <span class="text-xs font-medium text-textLight">WhatsApp</span>
+            </a>
+            <a id="shareFb" href="#" target="_blank" class="flex flex-col items-center gap-2 group">
+                <div class="w-14 h-14 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V7.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </div>
+                <span class="text-xs font-medium text-textLight">Facebook</span>
+            </a>
+            <a id="shareTw" href="#" target="_blank" class="flex flex-col items-center gap-2 group">
+                <div class="w-14 h-14 rounded-full bg-sky-100 text-sky-500 flex items-center justify-center group-hover:bg-sky-500 group-hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                </div>
+                <span class="text-xs font-medium text-textLight">Twitter</span>
+            </a>
+            <button id="shareCopy" class="flex flex-col items-center gap-2 group">
+                <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center group-hover:bg-slate-600 group-hover:text-white transition-colors">
+                    <i data-lucide="link" class="w-6 h-6"></i>
+                </div>
+                <span class="text-xs font-medium text-textLight">Salin Link</span>
+            </button>
+        </div>
+
+        <div class="bg-slate-50 p-3 rounded-lg border border-border flex items-center gap-2">
+            <input type="text" id="shareUrlInput" class="bg-transparent border-none text-sm text-textLight w-full outline-none" readonly>
+        </div>
+    </div>
+</div>
+
+<script>
+    function initShareModal() {
+        const modal = document.getElementById('shareModal');
+        const backdrop = document.getElementById('shareModalBackdrop');
+        const card = document.getElementById('shareModalCard');
+        const closeBtn = document.getElementById('closeShareModal');
+        const copyBtn = document.getElementById('shareCopy');
+        const urlInput = document.getElementById('shareUrlInput');
+        
+        const waLink = document.getElementById('shareWa');
+        const fbLink = document.getElementById('shareFb');
+        const twLink = document.getElementById('shareTw');
+
+        window.openShareModal = function() {
+            const url = window.location.href;
+            const title = document.title;
+            
+            // Try native Web Share API for mobile devices
+            if (navigator.share && window.innerWidth < 768) {
+                navigator.share({
+                    title: title,
+                    url: url
+                }).catch(console.error);
+                return;
+            }
+
+            // Update URLs
+            urlInput.value = url;
+            waLink.href = `https://wa.me/?text=${encodeURIComponent(title + " " + url)}`;
+            fbLink.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+            twLink.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
+
+            // Show Modal
+            modal.classList.remove('hidden');
+            // Trigger reflow
+            void modal.offsetWidth;
+            card.classList.remove('scale-95', 'opacity-0');
+            card.classList.add('scale-100', 'opacity-100');
+        };
+
+        function closeModal() {
+            card.classList.remove('scale-100', 'opacity-100');
+            card.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        closeBtn?.addEventListener('click', closeModal);
+        backdrop?.addEventListener('click', closeModal);
+        
+        copyBtn?.addEventListener('click', () => {
+            navigator.clipboard.writeText(urlInput.value).then(() => {
+                const originalText = copyBtn.querySelector('span').innerText;
+                copyBtn.querySelector('span').innerText = "Disalin!";
+                setTimeout(() => {
+                    copyBtn.querySelector('span').innerText = originalText;
+                }, 2000);
+            });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', initShareModal);
+</script>

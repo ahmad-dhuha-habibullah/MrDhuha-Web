@@ -1,0 +1,10 @@
+---
+title: "Apa Itu DNA dan Bagaimana Ia Bekerja?"
+description: "Mengenal kode kehidupan yang menyusun semua makhluk hidup."
+date: 2026-06-02
+tags: ["articles", "alam"]
+author: "Mr Dhuha"
+---
+DNA adalah singkatan dari *Deoxyribonucleic acid*. Ini adalah molekul panjang yang memuat instruksi genetik yang digunakan dalam pertumbuhan dan perkembangan makhluk hidup.
+
+Setiap sel di tubuh kita memiliki salinan DNA yang sama!

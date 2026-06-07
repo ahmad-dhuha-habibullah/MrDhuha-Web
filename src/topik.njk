@@ -1,0 +1,34 @@
+---
+layout: layouts/base.njk
+title: Topik - Mr Dhuha
+---
+
+<div class="container mx-auto px-4 lg:px-8 py-12">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">Topik</h1>
+        <p class="text-lg text-textLight font-serif">Jelajahi berbagai topik menarik sesuai minatmu.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for topic in collections.topics %}
+            <a href="/topik/{{ topic | slugify }}/" class="group block border border-border rounded-2xl overflow-hidden hover:border-primary hover:shadow-lg transition-all bg-white">
+                <div class="h-48 relative overflow-hidden bg-slate-100">
+                    <img src="/assets/topics/{{ topic | slugify }}.jpg" alt="{{ topic }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+                    <div class="absolute bottom-4 left-6">
+                        <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 shadow-lg">
+                            <i data-lucide="hash" class="w-5 h-5 text-white"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h2 class="text-xl font-bold text-text mb-2 group-hover:text-primary transition-colors">{{ topic }}</h2>
+                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-border">
+                        <span class="text-sm font-semibold text-slate-500">Lihat Artikel & Video</span>
+                        <span class="text-primary group-hover:translate-x-1 transition-transform"><i data-lucide="arrow-right" class="w-5 h-5"></i></span>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+</div>

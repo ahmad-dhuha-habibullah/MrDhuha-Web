@@ -1,0 +1,120 @@
+---
+layout: layouts/base.njk
+title: Beranda - Mr Dhuha
+---
+{% from "components/macros.njk" import contentCard %}
+
+<!-- Hero Section -->
+<section class="bg-[#F8FAFC] py-16 lg:py-24 border-b border-border relative overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0">
+        <img src="/assets/images/hero.jpg" alt="Background" class="w-full h-full object-cover opacity-20 mix-blend-multiply">
+    </div>
+    
+    <div class="container mx-auto px-4 lg:px-8 relative z-10">
+        <div class="max-w-3xl">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-text leading-tight mb-6 tracking-tight drop-shadow-sm">
+                Sains. Data. Teknologi.<br>Untuk <span class="text-primary">memahami</span> dunia.
+            </h1>
+            <p class="text-lg md:text-xl text-textLight mb-8 max-w-2xl font-serif">
+                Artikel, video, dan visualisasi yang menjelaskan fenomena alam, teknologi, dan dunia di sekitar kita dengan cara yang sederhana dan bermakna.
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a href="/artikel/" class="bg-primary hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center gap-2 shadow-lg">
+                    Artikel Terbaru <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+                <a href="/video/" class="bg-white border border-border hover:bg-gray-50 text-text font-semibold py-3 px-6 rounded-lg transition-colors flex items-center gap-2 shadow-lg">
+                    Tonton Video <i data-lucide="play-circle" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container mx-auto px-4 lg:px-8 py-16 space-y-20">
+    
+    <!-- Latest Articles -->
+    <section>
+        <div class="flex justify-between items-end mb-8">
+            <h2 class="text-2xl font-bold text-text">Artikel Terbaru</h2>
+            <a href="/artikel/" class="text-sm font-semibold text-primary hover:text-orange-700 flex items-center gap-1">
+                Lihat semua artikel <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for item in collections.articles %}
+                {% if loop.index0 < 4 %}
+                    {{ contentCard(item) }}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Latest Videos -->
+    <section>
+        <div class="flex justify-between items-end mb-8">
+            <h2 class="text-2xl font-bold text-text">Video Terbaru</h2>
+            <a href="/video/" class="text-sm font-semibold text-primary hover:text-orange-700 flex items-center gap-1">
+                Lihat semua video <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for item in collections.videos %}
+                {% if loop.index0 < 4 %}
+                    {{ contentCard(item, true) }}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Explore Topics -->
+    <section>
+        <div class="flex justify-between items-end mb-8">
+            <h2 class="text-2xl font-bold text-text">Jelajahi Topik</h2>
+            <a href="/topik/" class="text-sm font-semibold text-primary hover:text-orange-700 flex items-center gap-1">
+                Lihat semua topik <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {% for topic in collections.topics %}
+                {% if loop.index0 < 6 %}
+                <a href="/topik/{{ topic | slugify }}/" class="group block relative aspect-square overflow-hidden rounded-xl bg-slate-900 border border-border hover:shadow-xl transition-all">
+                    <img src="/assets/topics/{{ topic | slugify }}.jpg" alt="{{ topic }}" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity group-hover:scale-105 duration-500" onerror="this.src='https://picsum.photos/seed/{{ topic }}/400/300'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    <div class="absolute inset-0 flex items-center justify-center p-4">
+                        <h3 class="text-white font-bold text-sm text-center group-hover:text-primary transition-colors tracking-wide uppercase">{{ topic }}</h3>
+                    </div>
+                </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Featured Series -->
+    <section>
+        <div class="flex justify-between items-end mb-8">
+            <h2 class="text-2xl font-bold text-text">Seri Unggulan</h2>
+            <a href="/seri/" class="text-sm font-semibold text-primary hover:text-orange-700 flex items-center gap-1">
+                Lihat semua seri <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for item in collections.series %}
+                {% if loop.index0 < 4 %}
+                <a href="{{ item.url }}" class="group block relative aspect-[16/9] md:aspect-[3/4] overflow-hidden rounded-xl bg-slate-900 border border-border hover:shadow-xl transition-shadow">
+                    {% if item.data.thumbnail %}
+                        <img src="{{ item.data.thumbnail | resolveAsset(item.url) }}" alt="{{ item.data.title }}" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity group-hover:scale-105 duration-500">
+                    {% endif %}
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <h3 class="text-white font-bold text-lg mb-1 group-hover:text-primary transition-colors">{{ item.data.title }}</h3>
+                        <p class="text-gray-300 text-xs">{{ item.data.description | truncate(60) }}</p>
+                    </div>
+                </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+
+
+</div>

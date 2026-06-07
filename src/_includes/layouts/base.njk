@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title | default(site.name) }}</title>
+    <meta name="description" content="{{ description | default(site.description) }}">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap"
+        rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="antialiased flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-white border-b border-border">
+        <div class="container mx-auto px-4 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="/" class="flex items-center gap-3">
+                <img src="/assets/MrDhuhaLogo.png" alt="Mr Dhuha Logo" class="w-10 h-10 object-contain">
+                <div class="flex flex-col">
+                    <span class="font-bold text-xl leading-tight text-text">Mr Dhuha</span>
+                    <span class="text-[10px] text-textLight">Menjelaskan dunia dengan data.</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-text">
+                <a href="/" class="nav-link {% if page.url == '/' %}active{% endif %}">Beranda</a>
+                <a href="/artikel/" class="nav-link {% if '/artikel/' in page.url %}active{% endif %}">Artikel</a>
+                <a href="/video/" class="nav-link {% if '/video/' in page.url %}active{% endif %}">Video</a>
+                <a href="/topik/" class="nav-link {% if '/topik/' in page.url %}active{% endif %}">Topik</a>
+                <a href="/seri/" class="nav-link {% if '/seri/' in page.url %}active{% endif %}">Series</a>
+                <a href="/eksplorasi/" class="nav-link {% if '/eksplorasi/' in page.url %}active{% endif %}">Eksplorasi</a>
+                <a href="/tentang/" class="nav-link {% if '/tentang/' in page.url %}active{% endif %}">Tentang</a>
+            </nav>
+
+            <!-- Search & Mobile Menu -->
+            <div class="flex items-center gap-4">
+                <a href="/search/" class="p-2 text-text hover:text-primary transition-colors">
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                </a>
+                <button class="md:hidden p-2 text-text" id="mobile-menu-btn">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Nav (Hidden by default) -->
+        <nav id="mobile-nav" class="hidden md:hidden bg-white border-t border-border px-4 py-2 flex flex-col gap-2">
+            <a href="/" class="nav-link block py-2 {% if page.url == '/' %}text-primary font-bold{% endif %}">Beranda</a>
+            <a href="/artikel/" class="nav-link block py-2 {% if '/artikel/' in page.url %}text-primary font-bold{% endif %}">Artikel</a>
+            <a href="/video/" class="nav-link block py-2 {% if '/video/' in page.url %}text-primary font-bold{% endif %}">Video</a>
+            <a href="/topik/" class="nav-link block py-2 {% if '/topik/' in page.url %}text-primary font-bold{% endif %}">Topik</a>
+            <a href="/seri/" class="nav-link block py-2 {% if '/seri/' in page.url %}text-primary font-bold{% endif %}">Series</a>
+            <a href="/eksplorasi/" class="nav-link block py-2 {% if '/eksplorasi/' in page.url %}text-primary font-bold{% endif %}">Eksplorasi</a>
+            <a href="/tentang/" class="nav-link block py-2 {% if '/tentang/' in page.url %}text-primary font-bold{% endif %}">Tentang</a>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main id="app-root" class="flex-grow">
+        {{ content | safe }}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-border mt-16 pt-12 pb-8">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-3">
+                    <img src="/assets/MrDhuhaLogo.png" alt="Mr Dhuha Logo" class="w-8 h-8 object-contain grayscale opacity-60">
+                    <span class="text-sm text-textLight">&copy; 2026 Mr Dhuha. Menjelaskan dunia dengan data.</span>
+                </div>
+
+                <div class="flex gap-4 items-center">
+                    <a href="#" class="text-textLight hover:text-primary"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+                    <a href="#" class="text-textLight hover:text-primary"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+                    <a href="#" class="text-textLight hover:text-primary"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg></a>
+                    <a href="/tentang/" class="text-textLight hover:text-primary"><i data-lucide="mail" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+
+            <div class="mt-8 flex justify-center md:justify-end gap-6 text-xs text-textLight">
+                <a href="/privasi/" class="hover:text-text transition-colors">Privasi</a>
+                <a href="/tentang/" class="hover:text-text transition-colors">Kontak</a>
+                <a href="/peta-situs/" class="hover:text-primary transition-colors font-semibold">Peta Situs</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Include Share Modal -->
+    {% include "components/share-modal.njk" %}
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-full text-sm font-medium shadow-2xl opacity-0 transition-opacity pointer-events-none z-[110]">
+        <!-- message goes here -->
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileNav = document.getElementById('mobile-nav');
+        if (menuBtn && mobileNav) {
+            menuBtn.addEventListener('click', () => {
+                mobileNav.classList.toggle('hidden');
+            });
+        }
+
+        // Toast logic
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.remove('opacity-0');
+            toast.classList.add('opacity-100');
+            
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0');
+            }, 3000);
+        }
+
+        // Bookmark system
+        function toggleBookmark(url, title) {
+            let bookmarks = JSON.parse(localStorage.getItem('mrdhuha_bookmarks') || '[]');
+            const existingIndex = bookmarks.findIndex(b => b.url === url);
+            
+            if (existingIndex >= 0) {
+                bookmarks.splice(existingIndex, 1);
+                showToast('Dihapus dari markah (bookmark).');
+            } else {
+                bookmarks.push({ url, title, date: new Date().toISOString() });
+                showToast('Tersimpan di markah (bookmark)!');
+            }
+            
+            localStorage.setItem('mrdhuha_bookmarks', JSON.stringify(bookmarks));
+            updateBookmarkUI();
+        }
+
+        function updateBookmarkUI() {
+            let bookmarks = JSON.parse(localStorage.getItem('mrdhuha_bookmarks') || '[]');
+            const currentUrl = window.location.pathname;
+            
+            // If on article page
+            const icon = document.getElementById('bookmarkIcon');
+            const text = document.getElementById('bookmarkText');
+            
+            if (icon && text) {
+                const isBookmarked = bookmarks.some(b => currentUrl.includes(b.url) && b.url !== '/');
+                if (isBookmarked) {
+                    icon.setAttribute('fill', 'currentColor');
+                    text.innerText = 'Tersimpan';
+                } else {
+                    icon.setAttribute('fill', 'none');
+                    text.innerText = 'Simpan';
+                }
+            }
+        }
+
+        // Run on load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateBookmarkUI();
+        });
+    </script>
+</body>
+
+</html>

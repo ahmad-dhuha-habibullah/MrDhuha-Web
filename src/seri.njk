@@ -1,0 +1,46 @@
+---
+layout: layouts/base.njk
+title: Series - Mr Dhuha
+---
+
+<div class="container mx-auto px-4 lg:px-8 py-12 bg-[#F8FAFC]">
+    <div class="mb-12 text-center max-w-2xl mx-auto">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">Semua Series</h1>
+        <p class="text-lg text-textLight font-serif">Konten berurutan untuk memahami topik secara mendalam, dari dasar hingga mahir.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        {% for item in collections.series %}
+            <article class="bg-white rounded-xl border border-border overflow-hidden flex flex-col hover:shadow-xl transition-shadow group">
+                <a href="{{ item.url }}" class="relative aspect-[3/4] overflow-hidden bg-slate-900 block">
+                    {% if item.data.thumbnail %}
+                    <img src="{{ item.data.thumbnail | resolveAsset(item.url) }}" alt="{{ item.data.title }}" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition-opacity group-hover:scale-105 duration-500">
+                    {% endif %}
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-white/20 backdrop-blur-md text-white text-xs font-bold px-2 py-1 rounded border border-white/30">Series Belajar</span>
+                    </div>
+                    
+                    <div class="absolute bottom-4 left-4 right-4 text-white">
+                        <div class="flex items-center gap-3 text-xs font-medium text-gray-300 mb-2">
+                            <span>{{ item.data.stats | default('Beberapa artikel') }}</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <div class="p-6 flex flex-col flex-grow">
+                    <a href="{{ item.url }}" class="block group-hover:text-primary transition-colors">
+                        <h3 class="font-bold text-xl leading-snug mb-3 text-text group-hover:text-primary transition-colors">{{ item.data.title }}</h3>
+                    </a>
+                    <p class="text-sm text-textLight mb-6">{{ item.data.description }}</p>
+                    <div class="mt-auto">
+                        <a href="{{ item.url }}" class="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-orange-700 transition-colors">
+                            Lihat series <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</div>

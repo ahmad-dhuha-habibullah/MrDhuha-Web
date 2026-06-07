@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr Dhuha - Menjelaskan dunia dengan data.</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap"
+        rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#E05A11', // The orange color from the mockups
+                        secondary: '#1A3636', // Dark green
+                        surface: '#F8FAFC',
+                        border: '#E2E8F0',
+                        text: '#1E293B',
+                        textLight: '#64748B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1E293B;
+            background-color: #FFFFFF;
+        }
+
+        .article-content h1,
+        .article-content h2,
+        .article-content h3 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            color: #0F172A;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-content p {
+            font-family: 'Merriweather', serif;
+            font-size: 1.125rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #334155;
+        }
+
+        .nav-link {
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #E05A11;
+        }
+
+        .nav-link.active {
+            font-weight: 600;
+            position: relative;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #E05A11;
+        }
+
+        .card-hover {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hide scrollbar for horizontal scroll areas */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="antialiased flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-white border-b border-border">
+        <div class="container mx-auto px-4 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" onclick="navigate('home')" class="flex items-center gap-3">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 20L12 12L20 20L36 4" stroke="#1E293B" stroke-width="3" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <circle cx="12" cy="12" r="3" fill="#E05A11" />
+                </svg>
+                <div class="flex flex-col">
+                    <span class="font-bold text-xl leading-tight text-text">Mr Dhuha</span>
+                    <span class="text-[10px] text-textLight">Menjelaskan dunia dengan data.</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-text">
+                <a href="#" onclick="navigate('home')" class="nav-link active" data-target="home">Beranda</a>
+                <a href="#" onclick="navigate('articles')" class="nav-link" data-target="articles">Artikel</a>
+                <a href="#" onclick="navigate('videos')" class="nav-link" data-target="videos">Video</a>
+                <a href="#" onclick="navigate('topics')" class="nav-link" data-target="topics">Topik</a>
+                <a href="#" onclick="navigate('series')" class="nav-link" data-target="series">Seri</a>
+                <a href="#" onclick="navigate('explorations')" class="nav-link"
+                    data-target="explorations">Eksplorasi</a>
+                <a href="#" onclick="navigate('about')" class="nav-link" data-target="about">Tentang</a>
+            </nav>
+
+            <!-- Search & Mobile Menu -->
+            <div class="flex items-center gap-4">
+                <button class="p-2 text-text hover:text-primary transition-colors">
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                </button>
+                <button class="md:hidden p-2 text-text">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main id="app-root" class="flex-grow">
+        <!-- Content will be injected here by JavaScript -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-border mt-16 pt-12 pb-8">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-3">
+                    <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 20L12 12L20 20L36 4" stroke="#1E293B" stroke-width="3" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <circle cx="12" cy="12" r="3" fill="#E05A11" />
+                    </svg>
+                    <span class="text-sm text-textLight">© 2026 Mr Dhuha. Menjelaskan dunia dengan data.</span>
+                </div>
+
+                <div class="flex gap-4">
+                    <a href="#" class="text-textLight hover:text-primary"><i data-lucide="youtube"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="text-textLight hover:text-primary"><i data-lucide="instagram"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="text-textLight hover:text-primary"><i data-lucide="twitter"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="text-textLight hover:text-primary"><i data-lucide="mail" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+
+            <div class="mt-8 flex justify-center md:justify-end gap-6 text-xs text-textLight">
+                <a href="#" class="hover:text-text">Privasi</a>
+                <a href="#" class="hover:text-text">Kontak</a>
+                <a href="#" class="hover:text-text">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mock Data & Application Logic -->
+    <script>
+        // --- Mock Data ---
+        const MOCK_DATA = {
+            articles: [
+                { id: 'a1', title: 'Mengapa Langit Berwarna Biru?', topic: 'Atmosfer', readTime: '5 menit baca', date: '2 hari lalu', image: 'https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?auto=format&fit=crop&q=80&w=800', type: 'article' },
+                { id: 'a2', title: 'Apa Itu ENSO?', topic: 'Iklim', readTime: '7 menit baca', date: '5 hari lalu', image: 'https://images.unsplash.com/photo-1614644147724-2d4785d69962?auto=format&fit=crop&q=80&w=800', type: 'article' },
+                { id: 'a3', title: 'Mengapa Siklon Tropis Jarang Terbentuk di Indonesia?', topic: 'Cuaca', readTime: '6 menit baca', date: '8 hari lalu', image: 'https://images.unsplash.com/photo-1527482813589-9807530cce81?auto=format&fit=crop&q=80&w=800', type: 'article' },
+                { id: 'a4', title: 'Peta Polusi Udara di Indonesia: Siapa yang Paling Terdampak?', topic: 'Data Story', readTime: '8 menit baca', date: '10 hari lalu', image: 'https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?auto=format&fit=crop&q=80&w=800', type: 'article' },
+                { id: 'a5', title: 'Marine Heatwave di Indonesia: Ancaman yang Tak Terlihat', topic: 'Kelautan', readTime: '8 menit baca', date: '12 hari lalu', image: 'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&q=80&w=800', type: 'article' }
+            ],
+            videos: [
+                { id: 'v1', title: 'Mengapa Indonesia Tidak Memiliki Empat Musim?', duration: '10:24', date: '2 hari lalu', image: 'https://images.unsplash.com/photo-1495908333438-5f050b1dca04?auto=format&fit=crop&q=80&w=800', type: 'video' },
+                { id: 'v2', title: 'Bagaimana Radar Cuaca Bekerja?', duration: '8:47', date: '5 hari lalu', image: 'https://images.unsplash.com/photo-1584483756303-c36b802672b1?auto=format&fit=crop&q=80&w=800', type: 'video' },
+                { id: 'v3', title: 'Marine Heatwave di Indonesia: Ancaman yang Tak Terlihat', duration: '11:15', date: '1 minggu lalu', image: 'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&q=80&w=800', type: 'video' },
+                { id: 'v4', title: 'Bagaimana Satelit Melihat Bumi?', duration: '9:32', date: '2 minggu lalu', image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800', type: 'video' }
+            ],
+            topics: [
+                { id: 't1', title: 'Sains Dasar', desc: 'Fisika, Kimia, Biologi, Astronomi', icon: 'flask-conical', count: '45 artikel' },
+                { id: 't2', title: 'Cuaca & Iklim', desc: 'Cuaca, Iklim, ENSO, Siklon Tropis', icon: 'cloud-sun', count: '62 artikel' },
+                { id: 't3', title: 'Teknologi', desc: 'AI, IoT, Internet, Elektronika', icon: 'cpu', count: '38 artikel' },
+                { id: 't4', title: 'Data Story', desc: 'Peta, Statistik, Visualisasi, Data', icon: 'bar-chart-2', count: '57 artikel' },
+                { id: 't5', title: 'Bumi & Alam', desc: 'Geologi, Bencana Alam, Energi', icon: 'globe', count: '41 artikel' },
+                { id: 't6', title: 'Luar Angkasa', desc: 'Astronomi, Planet, Satelit', icon: 'rocket', count: '29 artikel' }
+            ],
+            series: [
+                { id: 's1', title: 'Bagaimana Dunia Bekerja', desc: 'Membedah fenomena yang terjadi di sekitar kita.', image: 'https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?auto=format&fit=crop&q=80&w=800', stats: '12 artikel · 9 video' },
+                { id: 's2', title: 'Cuaca Indonesia', desc: 'Memahami cuaca dan iklim di negeri tropis.', image: 'https://images.unsplash.com/photo-1527482813589-9807530cce81?auto=format&fit=crop&q=80&w=800', stats: '11 artikel · 8 video' },
+                { id: 's3', title: 'Mengenal Laut', desc: 'Menjelajahi samudra dan kehidupan di dalamnya.', image: 'https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&q=80&w=800', stats: '10 artikel · 7 video' },
+                { id: 's4', title: 'AI untuk Pemula', desc: 'Memahami AI dengan cara sederhana dan aplikatif.', image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=800', stats: '9 artikel · 6 video' }
+            ],
+            explorations: [
+                { id: 'e1', title: 'Peta Curah Hujan Tahunan Indonesia', type: 'Peta Interaktif', image: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=800' },
+                { id: 'e2', title: 'Perubahan Suhu Laut Indonesia (1982-2023)', type: 'Visualisasi', image: 'https://images.unsplash.com/photo-1498092651296-641e88c3b057?auto=format&fit=crop&q=80&w=800' },
+                { id: 'e3', title: 'Kualitas Udara Kota-Kota Besar Indonesia', type: 'Infografik', image: 'https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?auto=format&fit=crop&q=80&w=800' }
+            ]
+        };
+
+        // --- Render Functions ---
+
+        function createCard(item) {
+            const isVideo = item.type === 'video';
+            const badgeText = isVideo ? item.duration : item.topic;
+            const metaText = isVideo ? item.date : `${item.readTime} · ${item.date}`;
+
+            return `
+                <article class="bg-white rounded-xl border border-border overflow-hidden card-hover cursor-pointer flex flex-col h-full" onclick="navigate('${isVideo ? 'video-detail' : 'article-detail'}')">
+                    <div class="relative aspect-[16/9] overflow-hidden bg-gray-100">
+                        <img src="${item.image}" alt="${item.title}" class="object-cover w-full h-full">
+                        ${isVideo ? `
+                            <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                                <div class="w-12 h-12 bg-black/60 rounded-full flex items-center justify-center backdrop-blur-sm">
+                                    <i data-lucide="play" class="w-5 h-5 text-white ml-1"></i>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] font-bold px-2 py-1 rounded">
+                                ${badgeText}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        ${!isVideo ? `<span class="text-xs font-bold text-primary uppercase tracking-wider mb-2">${badgeText}</span>` : ''}
+                        <h3 class="font-bold text-lg leading-snug mb-3 text-text group-hover:text-primary transition-colors">${item.title}</h3>
+                        <div class="mt-auto flex items-center justify-between text-sm text-textLight">
+                            <span class="flex items-center gap-1">
+                                <i data-lucide="${isVideo ? 'calendar' : 'clock'}" class="w-4 h-4"></i>
+                                ${metaText}
+                            </span>
+                            <button class="hover:text-primary"><i data-lucide="bookmark" class="w-4 h-4"></i></button>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+
+        const Views = {
+            home: () => `
+                <!-- Hero Section -->
+                <section class="bg-[#F8FAFC] py-16 lg:py-24 border-b border-border">
+                    <div class="container mx-auto px-4 lg:px-8">
+                        <div class="max-w-3xl">
+                            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-text leading-tight mb-6 tracking-tight">
+                                Sains. Data. Teknologi.<br>Untuk <span class="text-primary">memahami</span> dunia.
+                            </h1>
+                            <p class="text-lg md:text-xl text-textLight mb-8 max-w-2xl font-serif">
+                                Artikel, video, dan visualisasi yang menjelaskan fenomena alam, teknologi, dan dunia di sekitar kita dengan cara yang sederhana dan bermakna.
+                            </p>
+                            <div class="flex flex-wrap gap-4">
+                                <button onclick="navigate('articles')" class="bg-primary hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center gap-2">
+                                    Artikel Terbaru <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                </button>
+                                <button onclick="navigate('videos')" class="bg-white border border-border hover:bg-gray-50 text-text font-semibold py-3 px-6 rounded-lg transition-colors flex items-center gap-2">
+                                    Tonton Video <i data-lucide="play-circle" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="container mx-auto px-4 lg:px-8 py-16 space-y-20">
+                    
+                    <!-- Latest Articles -->
+                    <section>
+                        <div class="flex justify-between items-end mb-8">
+                            <h2 class="text-2xl font-bold text-text">Artikel Terbaru</h2>
+                            <a href="#" onclick="navigate('articles')" class="text-sm font-semibold text-primary hover:text-orange-700 flex items-center gap-1">
+                                Lihat semua artikel <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            ${MOCK_DATA.articles.slice(0, 4).map(createCard).join('')}
+                        </div>
+                    </section>
+
+                    <!-- Latest Videos -->
+                    <section>
+                        <div class="flex justify-between items-end mb-8">
+                            <h2 class="text-2xl font-bold text-text">Video Terbaru</h2>
+                            <a href="#" onclick="navigate('videos')" class="text-sm font-semibold text-primary hover:text-orange-700 flex items-center gap-1">
+                                Lihat semua video <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            ${MOCK_DATA.videos.map(createCard).join('')}
+                        </div>
+                    </section>
+
+                    <!-- Explore Topics -->
+                    <section>
+                        <h2 class="text-2xl font-bold text-text mb-8">Jelajahi Topik</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                            ${MOCK_DATA.topics.map(topic => `
+                                <a href="#" onclick="navigate('topics')" class="bg-white border border-border rounded-xl p-6 flex flex-col items-center text-center hover:border-primary hover:shadow-md transition-all group">
+                                    <div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors">
+                                        <i data-lucide="${topic.icon}" class="w-6 h-6 text-slate-700 group-hover:text-primary"></i>
+                                    </div>
+                                    <h3 class="font-bold text-sm text-text mb-1">${topic.title}</h3>
+                                </a>
+                            `).join('')}
+                        </div>
+                    </section>
+
+                    <!-- Newsletter -->
+                    <section class="bg-blue-50 rounded-2xl p-8 lg:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
+                        <div class="max-w-xl">
+                            <h2 class="text-2xl font-bold text-text mb-2">Dapatkan Insight Terbaru</h2>
+                            <p class="text-textLight">Ringkasan artikel, video, dan data menarik langsung ke email kamu. Sesekali, bebas spam.</p>
+                        </div>
+                        <form class="flex w-full md:w-auto gap-2" onsubmit="event.preventDefault();">
+                            <input type="email" placeholder="Alamat email Anda" class="flex-grow md:w-64 px-4 py-3 rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-primary/50">
+                            <button type="submit" class="bg-primary hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors whitespace-nowrap">
+                                Berlangganan
+                            </button>
+                        </form>
+                    </section>
+                </div>
+            `,
+            articles: () => `
+                <div class="container mx-auto px-4 lg:px-8 py-12">
+                    <!-- Page Header -->
+                    <div class="mb-12">
+                        <div class="flex items-center gap-2 text-sm text-textLight mb-4">
+                            <a href="#" onclick="navigate('home')" class="hover:text-primary">Beranda</a>
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            <span class="text-text">Artikel</span>
+                        </div>
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">Semua Artikel</h1>
+                        <p class="text-lg text-textLight max-w-2xl font-serif">Kumpulan artikel sains, teknologi, dan data yang menjelaskan dunia dengan cara sederhana.</p>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="flex flex-wrap items-center gap-4 mb-8">
+                        <button class="bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold">Terbaru</button>
+                        <button class="bg-white border border-border hover:bg-gray-50 text-text px-4 py-2 rounded-full text-sm font-semibold transition-colors">Populer</button>
+                        <div class="relative">
+                            <button class="bg-white border border-border hover:bg-gray-50 text-text px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2 transition-colors">
+                                Topik <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Content Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                         ${[...MOCK_DATA.articles, ...MOCK_DATA.articles.slice(0, 3)].map(createCard).join('')}
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="flex justify-center items-center gap-2">
+                        <button class="w-10 h-10 flex items-center justify-center rounded border border-border text-textLight hover:bg-gray-50 disabled:opacity-50" disabled>
+                            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                        </button>
+                        <button class="w-10 h-10 flex items-center justify-center rounded bg-primary text-white font-medium">1</button>
+                        <button class="w-10 h-10 flex items-center justify-center rounded border border-border text-text hover:bg-gray-50 font-medium">2</button>
+                        <button class="w-10 h-10 flex items-center justify-center rounded border border-border text-text hover:bg-gray-50 font-medium">3</button>
+                        <span class="px-2 text-textLight">...</span>
+                        <button class="w-10 h-10 flex items-center justify-center rounded border border-border text-text hover:bg-gray-50 font-medium">12</button>
+                        <button class="w-10 h-10 flex items-center justify-center rounded border border-border text-text hover:bg-gray-50">
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            `,
+            'article-detail': () => `
+                <article class="container mx-auto px-4 lg:px-8 py-12 max-w-4xl">
+                    <!-- Breadcrumbs -->
+                    <div class="flex items-center gap-2 text-sm text-textLight mb-8">
+                        <a href="#" onclick="navigate('home')" class="hover:text-primary">Beranda</a>
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        <a href="#" onclick="navigate('articles')" class="hover:text-primary">Artikel</a>
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        <span class="text-text truncate">Mengapa Langit Berwarna Biru?</span>
+                    </div>
+
+                    <!-- Article Header -->
+                    <header class="mb-10 text-center md:text-left">
+                        <span class="inline-block bg-orange-100 text-primary text-xs font-bold uppercase tracking-wider py-1 px-3 rounded-full mb-4">Atmosfer</span>
+                        <h1 class="text-3xl md:text-5xl font-extrabold text-text leading-tight mb-6">Mengapa Langit Berwarna Biru?</h1>
+                        
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 border-y border-border py-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-gray-200 rounded-full overflow-hidden">
+                                    <img src="https://ui-avatars.com/api/?name=Mr+Dhuha&background=E05A11&color=fff" alt="Mr Dhuha" class="w-full h-full object-cover">
+                                </div>
+                                <div class="text-left">
+                                    <div class="font-semibold text-text">Mr Dhuha</div>
+                                    <div class="text-sm text-textLight flex items-center gap-2">
+                                        <span>2 hari lalu</span>
+                                        <span>·</span>
+                                        <span>5 menit baca</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <button class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-text border border-border rounded-lg hover:bg-gray-50 transition-colors">
+                                    <i data-lucide="share-2" class="w-4 h-4"></i> Bagikan
+                                </button>
+                                <button class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-text border border-border rounded-lg hover:bg-gray-50 transition-colors">
+                                    <i data-lucide="bookmark" class="w-4 h-4"></i> Simpan
+                                </button>
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- Featured Image -->
+                    <figure class="mb-12 rounded-2xl overflow-hidden bg-gray-100">
+                        <img src="https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?auto=format&fit=crop&q=80&w=1200" alt="Langit biru berawan" class="w-full object-cover max-h-[500px]">
+                        <figcaption class="text-center text-sm text-textLight mt-3 font-serif italic">Awan cumulus di bawah langit biru cerah.</figcaption>
+                    </figure>
+
+                    <!-- Article Body & Sidebar -->
+                    <div class="flex flex-col lg:flex-row gap-12">
+                        <!-- Main Content -->
+                        <div class="lg:w-2/3 article-content">
+                            <p class="font-bold text-xl mb-6">Setiap hari kita melihat langit berwarna biru. Tapi tahukah kamu bahwa warna itu bukan warna asli langit? Ini semua karena cahaya matahari dan proses yang disebut hamburan Rayleigh.</p>
+                            
+                            <h2>1. Cahaya Matahari Terdiri dari Banyak Warna</h2>
+                            <p>Cahaya putih matahari sebenarnya terdiri dari spektrum warna mulai dari merah hingga ungu, seperti yang kita lihat pada pelangi.</p>
+                            
+                            <!-- Dummy Chart Representation -->
+                            <div class="my-8 p-6 bg-slate-50 border border-border rounded-xl">
+                                <div class="h-8 w-full rounded-full bg-gradient-to-r from-purple-500 via-blue-500 via-green-500 via-yellow-500 to-red-500 mb-4"></div>
+                                <div class="flex justify-between text-xs font-bold text-slate-500">
+                                    <span>Ungu</span>
+                                    <span>Biru</span>
+                                    <span>Hijau</span>
+                                    <span>Kuning</span>
+                                    <span>Oranye</span>
+                                    <span>Merah</span>
+                                </div>
+                            </div>
+
+                            <h2>2. Hamburan Rayleigh</h2>
+                            <p>Ketika cahaya matahari memasuki atmosfer Bumi, ia menabrak molekul-molekul gas (terutama nitrogen dan oksigen). Molekul-molekul ini lebih kecil dari panjang gelombang cahaya tampak.</p>
+                            <p>Proses ini disebut <strong>Hamburan Rayleigh</strong>, dinamai menurut fisikawan Inggris Lord Rayleigh. Aturannya sederhana: cahaya dengan panjang gelombang lebih pendek (biru dan ungu) dihamburkan lebih banyak daripada cahaya dengan panjang gelombang lebih panjang (merah dan kuning).</p>
+
+                            <blockquote class="border-l-4 border-primary pl-6 py-2 my-8 italic text-lg text-slate-700 bg-orange-50/50 rounded-r-lg">
+                                "Langit itu biru karena udara menhamburkan cahaya biru dari matahari ke mata kita lebih banyak daripada warna lain."
+                            </blockquote>
+
+                            <h2>Lalu Mengapa Bukan Ungu?</h2>
+                            <p>Jika ungu memiliki panjang gelombang paling pendek dan dihamburkan paling kuat, mengapa langit tidak tampak ungu? Ada dua alasan utama:</p>
+                            <ol class="list-decimal pl-6 mb-6 font-serif text-lg leading-relaxed text-slate-700 space-y-2">
+                                <li>Matahari memancarkan lebih banyak cahaya biru daripada ungu.</li>
+                                <li>Mata manusia jauh lebih sensitif terhadap warna biru daripada ungu.</li>
+                            </ol>
+                        </div>
+
+                        <!-- Article Sidebar (Table of Contents / Related) -->
+                        <aside class="lg:w-1/3 space-y-8">
+                            <!-- TOC -->
+                            <div class="bg-surface border border-border p-6 rounded-xl sticky top-24">
+                                <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                                    <i data-lucide="list" class="w-5 h-5 text-primary"></i> Daftar Isi
+                                </h3>
+                                <ul class="space-y-3 text-sm font-medium text-textLight">
+                                    <li><a href="#" class="hover:text-primary transition-colors text-text">1. Cahaya Matahari</a></li>
+                                    <li><a href="#" class="hover:text-primary transition-colors">2. Hamburan Rayleigh</a></li>
+                                    <li><a href="#" class="hover:text-primary transition-colors">3. Mengapa Siang Biru?</a></li>
+                                    <li><a href="#" class="hover:text-primary transition-colors">4. Mengapa Senja Merah?</a></li>
+                                    <li><a href="#" class="hover:text-primary transition-colors">5. Kesimpulan</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- Read Also -->
+                            <div>
+                                <h3 class="font-bold text-lg mb-4 border-b border-border pb-2">Baca Juga</h3>
+                                <div class="space-y-4">
+                                    <a href="#" class="group flex gap-4 items-start">
+                                        <img src="https://images.unsplash.com/photo-1614644147724-2d4785d69962?auto=format&fit=crop&q=80&w=200" class="w-20 h-16 object-cover rounded bg-gray-100 flex-shrink-0">
+                                        <div>
+                                            <h4 class="text-sm font-bold leading-tight group-hover:text-primary transition-colors mb-1">Apa Itu ENSO?</h4>
+                                            <span class="text-xs text-textLight">7 menit baca</span>
+                                        </div>
+                                    </a>
+                                     <a href="#" class="group flex gap-4 items-start">
+                                        <img src="https://images.unsplash.com/photo-1527482813589-9807530cce81?auto=format&fit=crop&q=80&w=200" class="w-20 h-16 object-cover rounded bg-gray-100 flex-shrink-0">
+                                        <div>
+                                            <h4 class="text-sm font-bold leading-tight group-hover:text-primary transition-colors mb-1">Mengapa Petir Berbentuk Zig-zag?</h4>
+                                            <span class="text-xs text-textLight">6 menit baca</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
+                </article>
+            `,
+            videos: () => `
+                <div class="container mx-auto px-4 lg:px-8 py-12">
+                    <div class="mb-12">
+                        <div class="flex items-center gap-2 text-sm text-textLight mb-4">
+                            <a href="#" onclick="navigate('home')" class="hover:text-primary">Beranda</a>
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            <span class="text-text">Video</span>
+                        </div>
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">Semua Video</h1>
+                        <p class="text-lg text-textLight max-w-2xl font-serif">Penjelasan visual tentang sains, teknologi, dan dunia di sekitar kita.</p>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="flex flex-wrap items-center gap-4 mb-8">
+                        <button class="bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold">Terbaru</button>
+                        <button class="bg-white border border-border hover:bg-gray-50 text-text px-4 py-2 rounded-full text-sm font-semibold transition-colors">Populer</button>
+                        <div class="relative">
+                            <button class="bg-white border border-border hover:bg-gray-50 text-text px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2 transition-colors">
+                                Durasi <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                        ${[...MOCK_DATA.videos, ...MOCK_DATA.videos].map(createCard).join('')}
+                    </div>
+                     <div class="flex justify-center mt-8">
+                        <button class="text-sm font-bold text-text hover:text-primary flex items-center gap-2 px-6 py-3 border border-border rounded-lg hover:bg-gray-50 transition-colors">
+                            Muat lebih banyak <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            `,
+            'video-detail': () => `
+                <article class="container mx-auto px-4 lg:px-8 py-12 max-w-5xl">
+                    <div class="flex items-center gap-2 text-sm text-textLight mb-8">
+                        <a href="#" onclick="navigate('home')" class="hover:text-primary">Beranda</a>
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        <a href="#" onclick="navigate('videos')" class="hover:text-primary">Video</a>
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        <span class="text-text truncate">Mengapa Indonesia Tidak Memiliki Empat Musim?</span>
+                    </div>
+
+                    <!-- Video Player Mock -->
+                    <div class="w-full aspect-video bg-slate-900 rounded-2xl mb-8 relative overflow-hidden flex items-center justify-center group cursor-pointer shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1495908333438-5f050b1dca04?auto=format&fit=crop&q=80&w=1600" class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay">
+                        <div class="w-20 h-20 bg-primary/90 rounded-full flex items-center justify-center z-10 group-hover:scale-110 transition-transform">
+                            <i data-lucide="play" class="w-10 h-10 text-white ml-2"></i>
+                        </div>
+                        <!-- Controls Mock -->
+                        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent flex items-center gap-4 text-white">
+                            <i data-lucide="pause" class="w-5 h-5"></i>
+                            <div class="flex-grow h-1 bg-white/30 rounded-full overflow-hidden">
+                                <div class="w-1/3 h-full bg-primary"></div>
+                            </div>
+                            <span class="text-xs font-mono">03:14 / 10:24</span>
+                            <i data-lucide="maximize" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+
+                    <div class="max-w-3xl mx-auto">
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">Mengapa Indonesia Tidak Memiliki Empat Musim?</h1>
+                        
+                        <div class="flex flex-wrap items-center justify-between gap-4 mb-8 border-b border-border pb-6">
+                            <div class="flex items-center gap-4">
+                                <span class="bg-gray-100 text-text text-sm font-medium px-3 py-1 rounded-full">Cuaca & Iklim</span>
+                                <span class="text-sm text-textLight">Diunggah 2 hari lalu</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-text bg-surface border border-border rounded-lg hover:bg-gray-100">
+                                    <i data-lucide="thumbs-up" class="w-4 h-4"></i> Suka
+                                </button>
+                                <button class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-text bg-surface border border-border rounded-lg hover:bg-gray-100">
+                                    <i data-lucide="share-2" class="w-4 h-4"></i> Bagikan
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="article-content bg-surface p-6 rounded-xl border border-border mb-12">
+                            <h3 class="text-lg font-bold mb-2 mt-0">Deskripsi</h3>
+                            <p class="text-sm mb-0">Terletak di garis khatulistiwa, Indonesia memiliki iklim tropis yang unik. Video ini menjelaskan posisi astronomis bumi, kemiringan sumbu, dan bagaimana sirkulasi atmosfer global (Sel Hadley) mencegah terbentuknya musim dingin, semi, dan gugur di kepulauan nusantara.</p>
+                        </div>
+                    </div>
+                </article>
+            `,
+            topics: () => `
+                <div class="container mx-auto px-4 lg:px-8 py-12">
+                    <div class="text-center max-w-2xl mx-auto mb-16">
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">Topik</h1>
+                        <p class="text-lg text-textLight font-serif">Jelajahi berbagai topik menarik sesuai minatmu.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        ${MOCK_DATA.topics.map(topic => `
+                            <a href="#" class="group block border border-border rounded-2xl overflow-hidden hover:border-primary hover:shadow-lg transition-all bg-white">
+                                <div class="h-32 bg-slate-900 flex items-center justify-center relative overflow-hidden">
+                                    <!-- Decorative background pattern -->
+                                    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 20px 20px;"></div>
+                                    <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:scale-110 transition-transform">
+                                        <i data-lucide="${topic.icon}" class="w-8 h-8 text-white"></i>
+                                    </div>
+                                </div>
+                                <div class="p-6">
+                                    <h2 class="text-xl font-bold text-text mb-2 group-hover:text-primary transition-colors">${topic.title}</h2>
+                                    <p class="text-sm text-textLight mb-4 h-10">${topic.desc}</p>
+                                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-border">
+                                        <span class="text-sm font-semibold text-slate-500">${topic.count}</span>
+                                        <span class="text-primary group-hover:translate-x-1 transition-transform"><i data-lucide="arrow-right" class="w-5 h-5"></i></span>
+                                    </div>
+                                </div>
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>
+            `,
+            series: () => `
+                <div class="container mx-auto px-4 lg:px-8 py-12 bg-[#F8FAFC]">
+                    <div class="mb-12 text-center max-w-2xl mx-auto">
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">Semua Seri</h1>
+                        <p class="text-lg text-textLight font-serif">Konten berurutan untuk memahami topik secara mendalam, dari dasar hingga mahir.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                        ${MOCK_DATA.series.map(series => `
+                            <article class="bg-white rounded-xl border border-border overflow-hidden flex flex-col hover:shadow-xl transition-shadow group">
+                                <div class="relative aspect-[3/4] overflow-hidden bg-slate-900">
+                                    <img src="${series.image}" alt="${series.title}" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition-opacity group-hover:scale-105 duration-500">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                                    
+                                    <div class="absolute top-4 left-4">
+                                        <span class="bg-white/20 backdrop-blur-md text-white text-xs font-bold px-2 py-1 rounded border border-white/30">Seri Belajar</span>
+                                    </div>
+                                    
+                                    <div class="absolute bottom-4 left-4 right-4 text-white">
+                                        <div class="flex items-center gap-3 text-xs font-medium text-gray-300 mb-2">
+                                            <span>${series.stats}</span>
+                                        </div>
+                                    </div>
+                                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-lg">
+                                            <i data-lucide="play" class="w-6 h-6 text-white ml-1"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-6 flex flex-col flex-grow">
+                                    <h3 class="font-bold text-lg leading-snug mb-2 text-text group-hover:text-primary transition-colors">${series.title}</h3>
+                                    <p class="text-sm text-textLight mb-4 flex-grow">${series.desc}</p>
+                                    <a href="#" class="text-primary font-semibold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">Lihat seri <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                                </div>
+                            </article>
+                        `).join('')}
+                    </div>
+
+                    <!-- Call to Action -->
+                    <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-8 lg:p-12 flex flex-col md:flex-row items-center justify-between gap-8 text-white">
+                         <div>
+                            <h2 class="text-2xl font-bold mb-2">Ikuti perjalanan belajar bersama Mr Dhuha</h2>
+                            <p class="text-gray-300">Dari yang sederhana hingga mendalam. Mulai seri belajarmu hari ini.</p>
+                        </div>
+                        <button class="bg-primary hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg transition-colors whitespace-nowrap">
+                            Mulai Menjelajahi
+                        </button>
+                    </div>
+                </div>
+            `,
+            explorations: () => `
+                <div class="container mx-auto px-4 lg:px-8 py-12">
+                     <div class="mb-12">
+                        <div class="flex items-center gap-2 text-sm text-textLight mb-4">
+                            <a href="#" onclick="navigate('home')" class="hover:text-primary">Beranda</a>
+                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            <span class="text-text">Eksplorasi</span>
+                        </div>
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">Eksplorasi</h1>
+                        <p class="text-lg text-textLight max-w-2xl font-serif">Temukan data, visualisasi interaktif, infografik, dan simulasi untuk memahami dunia lebih dalam.</p>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="flex gap-4 mb-8 overflow-x-auto no-scrollbar pb-2">
+                        <button class="bg-primary text-white px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap">Semua</button>
+                        <button class="bg-white border border-border hover:bg-gray-50 text-text px-5 py-2 rounded-full text-sm font-semibold transition-colors whitespace-nowrap">Infografik</button>
+                        <button class="bg-white border border-border hover:bg-gray-50 text-text px-5 py-2 rounded-full text-sm font-semibold transition-colors whitespace-nowrap">Peta Interaktif</button>
+                        <button class="bg-white border border-border hover:bg-gray-50 text-text px-5 py-2 rounded-full text-sm font-semibold transition-colors whitespace-nowrap">Dataset</button>
+                        <button class="bg-white border border-border hover:bg-gray-50 text-text px-5 py-2 rounded-full text-sm font-semibold transition-colors whitespace-nowrap">Simulasi</button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        ${MOCK_DATA.explorations.map(exp => `
+                            <a href="#" class="group block bg-white border border-border rounded-xl overflow-hidden hover:shadow-xl transition-all">
+                                <div class="relative aspect-[4/3] bg-gray-100 overflow-hidden">
+                                    <img src="${exp.image}" alt="${exp.title}" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
+                                    <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+                                </div>
+                                <div class="p-5">
+                                    <h3 class="font-bold text-lg mb-3 text-text group-hover:text-primary transition-colors leading-tight">${exp.title}</h3>
+                                    <span class="inline-block bg-slate-100 text-slate-600 text-xs font-semibold px-2.5 py-1 rounded border border-slate-200">
+                                        ${exp.type}
+                                    </span>
+                                </div>
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>
+            `,
+            about: () => `
+                <div class="container mx-auto px-4 lg:px-8 py-16 max-w-3xl">
+                    <div class="text-center mb-12">
+                        <h1 class="text-4xl md:text-5xl font-extrabold text-text mb-6">Tentang Mr Dhuha</h1>
+                        <p class="text-xl text-textLight font-serif">Menjelaskan dunia dengan data.</p>
+                    </div>
+
+                    <div class="prose prose-lg mx-auto article-content">
+                        <div class="flex justify-center mb-8">
+                             <div class="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-white shadow-xl">
+                                <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&q=80&w=400" alt="Creator" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+
+                        <p class="text-center font-bold text-xl mb-12">Saya adalah seorang pengamat alam, pembelajar seumur hidup, dan pembuat konten yang percaya bahwa pengetahuan terbaik adalah yang bisa dipahami bersama.</p>
+
+                        <h2>Mengapa Platform Ini Ada?</h2>
+                        <p>Dunia kita luar biasa kompleks. Dari pergerakan atmosfer yang menciptakan cuaca harian hingga data satelit yang memantau kesehatan laut kita, ada begitu banyak hal menarik yang terjadi setiap saat.</p>
+                        <p>Namun, seringkali informasi ini terkubur dalam jurnal akademis yang sulit dibaca atau laporan teknis yang membosankan. Mr Dhuha lahir dari keinginan sederhana: menerjemahkan kompleksitas itu menjadi cerita yang menarik, visual, dan berbasis data untuk audiens Indonesia.</p>
+
+                        <h2>Apa yang Akan Anda Temukan di Sini?</h2>
+                        <ul class="list-disc pl-6 space-y-2 font-serif text-lg text-slate-700 mb-8">
+                            <li><strong>Artikel Mendalam:</strong> Penjelasan tertulis tentang fenomena alam dan teknologi.</li>
+                            <li><strong>Video Edukasi:</strong> Visualisasi dinamis untuk menjelaskan konsep yang sulit.</li>
+                            <li><strong>Eksplorasi Data:</strong> Peta interaktif dan grafik untuk melihat data secara mandiri.</li>
+                            <li><strong>Seri Pembelajaran:</strong> Kumpulan konten terstruktur untuk mempelajari topik baru dari nol.</li>
+                        </ul>
+
+                        <blockquote class="border-l-4 border-primary pl-6 py-2 my-10 italic text-xl text-slate-800 font-bold bg-orange-50/50 rounded-r-lg">
+                            "Sains bukan hanya untuk para ahli. Sains adalah cara kita memahami dunia."
+                        </blockquote>
+
+                        <h2>Dukung Karya Ini</h2>
+                        <p>Platform ini dijalankan secara independen. Jika Anda merasa konten di sini bermanfaat, cara terbaik untuk mendukung adalah dengan membagikannya kepada teman, keluarga, atau rekan kerja Anda.</p>
+                        
+                        <div class="flex justify-center gap-4 mt-12">
+                            <a href="#" class="flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-lg hover:bg-slate-800 transition-colors font-semibold">
+                                <i data-lucide="youtube" class="w-5 h-5"></i> Subscribe YouTube
+                            </a>
+                            <a href="#" class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition-colors font-semibold">
+                                Berlangganan Newsletter
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `
+        };
+
+        // --- Router Logic ---
+        function navigate(viewName) {
+            const root = document.getElementById('app-root');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+
+            // Update content
+            if (Views[viewName]) {
+                root.innerHTML = Views[viewName]();
+            } else {
+                root.innerHTML = `<div class="container mx-auto py-20 text-center"><h1 class="text-2xl font-bold">404 - Halaman tidak ditemukan</h1></div>`;
+            }
+
+            // Update active navigation link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.dataset.target === viewName) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // Re-initialize Lucide icons for newly injected HTML
+            lucide.createIcons();
+        }
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            navigate('home');
+        });
+
+    </script>
+</body>
+
+</html>
+
+<!-- NOTE: This is only an example. The web should not be a single page like this. Use real logo and favicon using my own MrDhuhaLogo.png, and please move them into the correct path for assets like image and logo -->

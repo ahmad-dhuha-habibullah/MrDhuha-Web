@@ -1,0 +1,68 @@
+---
+layout: layouts/base.njk
+title: "Peta Situs"
+permalink: /peta-situs/
+---
+
+<div class="container mx-auto px-4 lg:px-8 py-16">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-extrabold text-text mb-6">Peta Situs</h1>
+        <p class="text-lg text-textLight font-serif mb-12">Navigasi ke seluruh konten di Mr Dhuha.</p>
+
+        <div class="space-y-12">
+            <!-- Halaman Utama -->
+            <section>
+                <h2 class="text-2xl font-bold border-b border-border pb-2 mb-6">Halaman Utama</h2>
+                <ul class="space-y-3 list-disc list-inside text-text">
+                    <li><a href="/" class="hover:text-primary transition-colors">Beranda</a></li>
+                    <li><a href="/artikel/" class="hover:text-primary transition-colors">Artikel</a></li>
+                    <li><a href="/video/" class="hover:text-primary transition-colors">Video</a></li>
+                    <li><a href="/seri/" class="hover:text-primary transition-colors">Series</a></li>
+                    <li><a href="/eksplorasi/" class="hover:text-primary transition-colors">Eksplorasi</a></li>
+                    <li><a href="/topik/" class="hover:text-primary transition-colors">Jelajahi Topik</a></li>
+                    <li><a href="/tentang/" class="hover:text-primary transition-colors">Tentang Mr Dhuha</a></li>
+                </ul>
+            </section>
+
+            <!-- Artikel -->
+            <section>
+                <h2 class="text-2xl font-bold border-b border-border pb-2 mb-6">Artikel</h2>
+                <ul class="space-y-3 list-disc list-inside text-text">
+                    {% for item in collections.articles %}
+                    <li><a href="{{ item.url }}" class="hover:text-primary transition-colors">{{ item.data.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <!-- Video -->
+            <section>
+                <h2 class="text-2xl font-bold border-b border-border pb-2 mb-6">Video</h2>
+                <ul class="space-y-3 list-disc list-inside text-text">
+                    {% for item in collections.videos %}
+                    <li><a href="{{ item.url }}" class="hover:text-primary transition-colors">{{ item.data.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <!-- Series -->
+            <section>
+                <h2 class="text-2xl font-bold border-b border-border pb-2 mb-6">Series</h2>
+                <ul class="space-y-3 list-disc list-inside text-text">
+                    {% for item in collections.series %}
+                    <li><a href="{{ item.url }}" class="hover:text-primary transition-colors">{{ item.data.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <!-- Eksplorasi -->
+            <section>
+                <h2 class="text-2xl font-bold border-b border-border pb-2 mb-6">Eksplorasi</h2>
+                <ul class="space-y-3 list-disc list-inside text-text">
+                    {% for item in collections.explorations %}
+                    <li><a href="{{ item.url }}" class="hover:text-primary transition-colors">{{ item.data.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </div>
+    </div>
+</div>

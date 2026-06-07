@@ -1,0 +1,10 @@
+{
+  "name": "Mr Dhuha",
+  "description": "Menjelaskan dunia dengan data.",
+  "url": "https://mrdhuha.example.com",
+  "author": "Mr Dhuha",
+  "brandColors": {
+    "primary": "#E05A11",
+    "secondary": "#1A3636"
+  }
+}
