@@ -21,11 +21,7 @@ layout: layouts/base.njk
                 <div class="h-48 relative overflow-hidden bg-slate-100">
                     <img src="/assets/topics/{{ topic | slugify }}.jpg" alt="{{ topic }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
-                    <div class="absolute bottom-4 left-6">
-                        <div class="w-10 h-10 rounded-xl bg-surface/20 backdrop-blur-md flex items-center justify-center border border-white/30 shadow-lg">
-                            <i data-lucide="hash" class="w-5 h-5 text-white"></i>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="p-6">
                     <h2 class="text-xl font-bold text-text mb-2 group-hover:text-primary transition-colors">{{ topic }}</h2>
