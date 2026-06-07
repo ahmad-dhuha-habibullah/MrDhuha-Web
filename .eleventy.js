@@ -1,6 +1,8 @@
 const { DateTime } = require("luxon");
 
 module.exports = function(eleventyConfig) {
+  // Passthrough for netlify decap CMS
+  eleventyConfig.addPassthroughCopy("src/admin");
   // Passthrough copy for images and CSS
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/favicon.ico");
@@ -15,7 +17,7 @@ module.exports = function(eleventyConfig) {
       <figcaption class="text-center text-sm text-textLight mt-3 italic">${caption}</figcaption>
     </figure>`;
   });
-
+d
   // Custom filter for resolving colocated assets
   eleventyConfig.addFilter("resolveAsset", function(assetPath, pageUrl) {
     if (!assetPath) return "";
