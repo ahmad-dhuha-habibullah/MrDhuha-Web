@@ -2,7 +2,7 @@
 title: Apa Itu DNA dan Bagaimana Ia Bekerja?
 description: Mengenal kode kehidupan yang menyusun semua makhluk hidup.
 date: 2026-06-02
-thumbnail: https://picsum.photos/id/496/1920/1280.webp
+thumbnail: /assets/images/hero.jpg
 imageCaption: ''
 series: ''
 author: Mr Dhuha
