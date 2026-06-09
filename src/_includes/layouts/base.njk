@@ -67,12 +67,12 @@
             <!-- Desktop Nav -->
             <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-text">
                 <a href="/" class="nav-link {% if page.url == '/' %}active{% endif %}">Beranda</a>
-                <a href="/artikel/" class="nav-link {% if '/artikel/' in page.url %}active{% endif %}">Artikel</a>
-                <a href="/video/" class="nav-link {% if '/video/' in page.url %}active{% endif %}">Video</a>
+                <a href="/artikel/" class="nav-link {% if '/artikel/' in page.url or '/articles/' in page.url %}active{% endif %}">Artikel</a>
+                <a href="/video/" class="nav-link {% if '/video/' in page.url or '/videos/' in page.url %}active{% endif %}">Video</a>
                 <a href="/topik/" class="nav-link {% if '/topik/' in page.url %}active{% endif %}">Topik</a>
-                <a href="/seri/" class="nav-link {% if '/seri/' in page.url %}active{% endif %}">Series</a>
-                <a href="/eksplorasi/" class="nav-link {% if '/eksplorasi/' in page.url %}active{% endif %}">Eksplorasi</a>
-                <a href="/tentang/" class="nav-link {% if '/tentang/' in page.url %}active{% endif %}">Tentang</a>
+                <a href="/seri/" class="nav-link {% if '/seri/' in page.url or '/series/' in page.url %}active{% endif %}">Series</a>
+                <a href="/eksplorasi/" class="nav-link {% if '/eksplorasi/' in page.url or '/explorations/' in page.url %}active{% endif %}">Eksplorasi</a>
+                <a href="/tentang/" class="nav-link {% if '/tentang/' in page.url or '/about/' in page.url %}active{% endif %}">Tentang</a>
             </nav>
 
             <!-- Search, Theme & Mobile Menu -->
@@ -89,14 +89,14 @@
             </div>
         </div>
         <!-- Mobile Nav (Hidden by default) -->
-        <nav id="mobile-nav" class="hidden md:hidden bg-surface border-t border-border px-4 py-2 flex flex-col gap-2">
+        <nav id="mobile-nav" class="hidden md:hidden bg-surface border-t border-border px-4 py-2 flex flex-col gap-2 shadow-md">
             <a href="/" class="nav-link block py-2 {% if page.url == '/' %}text-primary font-bold{% endif %}">Beranda</a>
-            <a href="/artikel/" class="nav-link block py-2 {% if '/artikel/' in page.url %}text-primary font-bold{% endif %}">Artikel</a>
-            <a href="/video/" class="nav-link block py-2 {% if '/video/' in page.url %}text-primary font-bold{% endif %}">Video</a>
+            <a href="/artikel/" class="nav-link block py-2 {% if '/artikel/' in page.url or '/articles/' in page.url %}text-primary font-bold{% endif %}">Artikel</a>
+            <a href="/video/" class="nav-link block py-2 {% if '/video/' in page.url or '/videos/' in page.url %}text-primary font-bold{% endif %}">Video</a>
             <a href="/topik/" class="nav-link block py-2 {% if '/topik/' in page.url %}text-primary font-bold{% endif %}">Topik</a>
-            <a href="/seri/" class="nav-link block py-2 {% if '/seri/' in page.url %}text-primary font-bold{% endif %}">Series</a>
-            <a href="/eksplorasi/" class="nav-link block py-2 {% if '/eksplorasi/' in page.url %}text-primary font-bold{% endif %}">Eksplorasi</a>
-            <a href="/tentang/" class="nav-link block py-2 {% if '/tentang/' in page.url %}text-primary font-bold{% endif %}">Tentang</a>
+            <a href="/seri/" class="nav-link block py-2 {% if '/seri/' in page.url or '/series/' in page.url %}text-primary font-bold{% endif %}">Series</a>
+            <a href="/eksplorasi/" class="nav-link block py-2 {% if '/eksplorasi/' in page.url or '/explorations/' in page.url %}text-primary font-bold{% endif %}">Eksplorasi</a>
+            <a href="/tentang/" class="nav-link block py-2 {% if '/tentang/' in page.url or '/about/' in page.url %}text-primary font-bold{% endif %}">Tentang</a>
         </nav>
     </header>
 

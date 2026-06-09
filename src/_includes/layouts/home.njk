@@ -93,11 +93,11 @@ layout: layouts/base.njk
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {% for topic in collections.topics %}
                 {% if loop.index0 < 6 %}
-                <a href="/topik/{{ topic | slugify }}/" class="group block relative aspect-square overflow-hidden rounded-xl bg-slate-900 border border-border hover:shadow-xl transition-all">
-                    <img src="/assets/topics/{{ topic | slugify }}.jpg" alt="{{ topic }}" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity group-hover:scale-105 duration-500" onerror="this.src='https://picsum.photos/seed/{{ topic }}/400/300'">
+                <a href="{{ topic.url }}" class="group block relative aspect-square overflow-hidden rounded-xl bg-slate-900 border border-border hover:shadow-xl transition-all">
+                    <img src="{{ topic.data.thumbnail | default('https://picsum.photos/seed/' ~ topic.data.title | slugify ~ '/400/300') }}" alt="{{ topic.data.title }}" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity group-hover:scale-105 duration-500" onerror="this.src='https://picsum.photos/seed/{{ topic.data.title | slugify }}/400/300'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
                     <div class="absolute inset-0 flex items-center justify-center p-4">
-                        <h3 class="text-white font-bold text-sm text-center group-hover:text-primary transition-colors tracking-wide uppercase">{{ topic }}</h3>
+                        <h3 class="text-white font-bold text-sm text-center group-hover:text-primary transition-colors tracking-wide uppercase">{{ topic.data.title }}</h3>
                     </div>
                 </a>
                 {% endif %}
