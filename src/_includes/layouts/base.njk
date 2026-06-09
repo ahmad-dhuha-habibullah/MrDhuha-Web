@@ -43,9 +43,19 @@
             document.documentElement.setAttribute('data-theme', 'dark');
         }
     </script>
+
+    <!-- Umami Analytics -->
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="601f8664-f21a-4563-9c6f-f0407589ad1d"></script>
 </head>
 
 <body class="antialiased flex flex-col min-h-screen">
+
+    <!-- Announcement Bar -->
+    {% if announcement.enabled %}
+    <div style="background-color: {{ announcement.background_color | default('#1e293b') }}" class="text-white text-sm font-medium py-2 px-4 text-center">
+        {{ announcement.text | safe }}
+    </div>
+    {% endif %}
 
     <!-- Navigation -->
     <header class="sticky top-0 z-50 bg-surface border-b border-border">
@@ -75,9 +85,9 @@
                 <button id="theme-toggle" class="p-2 text-text hover:text-primary transition-colors" aria-label="Toggle Dark Mode">
                     <i data-lucide="moon" class="w-5 h-5"></i>
                 </button>
-                <a href="/search/" class="p-2 text-text hover:text-primary transition-colors">
+                <button onclick="toggleSearchModal()" class="p-2 text-text hover:text-primary transition-colors cursor-pointer" aria-label="Search">
                     <i data-lucide="search" class="w-5 h-5"></i>
-                </a>
+                </button>
                 <button class="md:hidden p-2 text-text" id="mobile-menu-btn">
                     <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
@@ -132,6 +142,48 @@
     <div id="toast" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-full text-sm font-medium shadow-2xl opacity-0 transition-opacity pointer-events-none z-[110]">
         <!-- message goes here -->
     </div>
+
+    <!-- Fullscreen Search Modal -->
+    <div id="searchModal" class="fixed inset-0 bg-surface/95 backdrop-blur-sm z-[200] hidden flex-col items-center pt-20 px-4">
+        <button onclick="toggleSearchModal()" class="absolute top-6 right-6 p-2 text-textLight hover:text-text bg-slate-100 dark:bg-slate-800 rounded-full transition-colors">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <div class="w-full max-w-3xl">
+            <div class="relative mb-8">
+                <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-textLight"></i>
+                <input type="text" id="modalSearchInput" placeholder="Cari artikel, video, atau topik..." class="w-full bg-white dark:bg-slate-900 border-2 border-border rounded-2xl py-4 pl-14 pr-4 text-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all text-text shadow-lg">
+            </div>
+            <div id="modalSearchResults" class="space-y-4 max-h-[70vh] overflow-y-auto pb-8 pr-2 custom-scrollbar">
+                <!-- Search results injected here via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Promo CTA Modal -->
+    {% if promo.enabled %}
+    <div id="promoModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[150] hidden items-center justify-center p-4">
+        <div class="bg-surface rounded-2xl shadow-2xl w-full max-w-md overflow-hidden relative transform transition-all scale-95 opacity-0 duration-300" id="promoModalCard">
+            <button onclick="closePromoModal()" class="absolute top-4 right-4 z-10 p-2 text-textLight hover:text-text bg-white/50 dark:bg-black/50 rounded-full backdrop-blur-md transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            {% if promo.image %}
+            <div class="w-full aspect-video bg-slate-200 dark:bg-slate-800">
+                <img src="{{ promo.image | resolveAsset('/') }}" alt="Promo Image" class="w-full h-full object-cover">
+            </div>
+            {% endif %}
+            <div class="p-8 text-center">
+                <h3 class="text-2xl font-bold text-text mb-3">{{ promo.heading }}</h3>
+                <p class="text-textLight mb-8">{{ promo.description }}</p>
+                <a href="{{ promo.cta_url }}" class="inline-block w-full bg-primary hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-xl transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    Pelajari Lebih Lanjut
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Fuse.js for Search -->
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
 
     <script>
         // Initialize Lucide icons
@@ -289,6 +341,113 @@
             
             // Re-initialize icons for newly injected buttons
             lucide.createIcons();
+        });
+
+        // Promo Modal Logic
+        {% if promo.enabled %}
+        document.addEventListener('DOMContentLoaded', () => {
+            const promoClosedDate = localStorage.getItem('mrdhuha_promo_closed');
+            const now = new Date().getTime();
+            const threeDays = 3 * 24 * 60 * 60 * 1000;
+            
+            if (!promoClosedDate || (now - parseInt(promoClosedDate)) > threeDays) {
+                // Show modal after a small delay
+                setTimeout(() => {
+                    const modal = document.getElementById('promoModal');
+                    const card = document.getElementById('promoModalCard');
+                    if (modal && card) {
+                        modal.classList.remove('hidden');
+                        modal.classList.add('flex');
+                        // Trigger reflow
+                        void modal.offsetWidth;
+                        card.classList.remove('scale-95', 'opacity-0');
+                        card.classList.add('scale-100', 'opacity-100');
+                    }
+                }, 1500);
+            }
+        });
+        
+        function closePromoModal() {
+            const modal = document.getElementById('promoModal');
+            const card = document.getElementById('promoModalCard');
+            if (modal && card) {
+                card.classList.remove('scale-100', 'opacity-100');
+                card.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    modal.classList.remove('flex');
+                    modal.classList.add('hidden');
+                }, 300);
+                
+                // Save to localStorage
+                localStorage.setItem('mrdhuha_promo_closed', new Date().getTime().toString());
+            }
+        }
+        {% endif %}
+
+        // Search Modal Logic
+        let searchIndex = null;
+        let fuse = null;
+
+        function toggleSearchModal() {
+            const modal = document.getElementById('searchModal');
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+                document.getElementById('modalSearchInput').focus();
+                
+                // Fetch index if not loaded
+                if (!fuse) {
+                    fetch('/search.json')
+                        .then(res => res.json())
+                        .then(data => {
+                            searchIndex = data;
+                            fuse = new Fuse(searchIndex, {
+                                keys: ['title', 'description', 'type', 'topic'],
+                                includeScore: true,
+                                threshold: 0.4
+                            });
+                        });
+                }
+            } else {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = '';
+            }
+        }
+
+        document.getElementById('modalSearchInput')?.addEventListener('input', function(e) {
+            const query = e.target.value;
+            const resultsContainer = document.getElementById('modalSearchResults');
+            
+            if (!query || query.trim() === '') {
+                resultsContainer.innerHTML = '';
+                return;
+            }
+            
+            if (!fuse) return;
+            
+            const results = fuse.search(query);
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = `<p class="text-textLight text-center py-8">Tidak ada hasil ditemukan untuk "<b>${query}</b>".</p>`;
+                return;
+            }
+            
+            let html = '';
+            results.slice(0, 10).forEach(result => {
+                const item = result.item;
+                html += `
+                <a href="${item.url}" class="block bg-surface border border-border p-4 rounded-xl hover:shadow-md hover:border-primary/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-lg text-text group-hover:text-primary transition-colors">${item.title}</h3>
+                        <span class="text-xs font-bold px-2 py-1 bg-slate-100 dark:bg-slate-800 text-textLight rounded uppercase tracking-wider">${item.type}</span>
+                    </div>
+                    <p class="text-sm text-textLight line-clamp-2">${item.description}</p>
+                </a>`;
+            });
+            
+            resultsContainer.innerHTML = html;
         });
     </script>
 </body>

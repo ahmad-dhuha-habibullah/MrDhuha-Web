@@ -165,3 +165,23 @@ collections:
       - {label: "Type (e.g., Data Interaktif)", name: "type", widget: "string", default: "Data Interaktif"}
       - {label: "Iframe URL or Path (e.g. https://... or /assets/sim.html)", name: "iframe", widget: "string", required: false, hint: "Paste a live URL or the path to an uploaded HTML file."}
       - {label: "Body (Description)", name: "body", widget: "markdown", required: false}
+
+  - name: "settings"
+    label: "Settings"
+    files:
+      - label: "Announcement Bar"
+        name: "announcement"
+        file: "src/_data/announcement.json"
+        fields:
+          - {label: "Enabled", name: "enabled", widget: "boolean", default: false}
+          - {label: "Text", name: "text", widget: "string"}
+          - {label: "Background Color", name: "background_color", widget: "color", required: false}
+      - label: "Promo CTA"
+        name: "promo"
+        file: "src/_data/promo.json"
+        fields:
+          - {label: "Enabled", name: "enabled", widget: "boolean", default: false}
+          - {label: "Heading", name: "heading", widget: "string"}
+          - {label: "Description", name: "description", widget: "text"}
+          - {label: "CTA URL", name: "cta_url", widget: "string"}
+          - {label: "Image", name: "image", widget: "image", required: false}

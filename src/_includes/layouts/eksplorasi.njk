@@ -32,9 +32,18 @@ layout: layouts/base.njk
 <div class="w-full bg-slate-100 dark:bg-slate-800/50 border-b border-border">
     <!-- Exploration Interactive Content Area -->
     <div class="container mx-auto px-0 md:px-4 lg:px-8 py-8">
-        <div class="aspect-video bg-surface shadow-xl rounded-none md:rounded-2xl border border-border overflow-hidden relative flex items-center justify-center">
+        <div id="iframeContainer" class="relative group bg-surface shadow-xl rounded-none md:rounded-2xl border border-border overflow-hidden flex items-center justify-center" style="min-height: 60vh;">
             {% if iframe %}
-                <iframe src="{{ iframe }}" class="w-full h-full border-0" allowfullscreen></iframe>
+                <!-- Action Bar Overlay -->
+                <div class="absolute top-4 right-4 z-10 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <a href="{{ iframe }}" target="_blank" rel="noopener noreferrer" class="bg-black/70 hover:bg-black text-white px-3 py-1.5 rounded-lg text-sm font-medium backdrop-blur-sm transition-colors flex items-center gap-1.5 shadow-lg">
+                        <i data-lucide="external-link" class="w-4 h-4"></i> <span class="hidden sm:inline">Visit Page</span>
+                    </a>
+                    <button onclick="toggleIframeFullscreen()" id="fullscreenBtn" class="bg-black/70 hover:bg-black text-white px-3 py-1.5 rounded-lg text-sm font-medium backdrop-blur-sm transition-colors flex items-center gap-1.5 shadow-lg">
+                        <i data-lucide="maximize" class="w-4 h-4" id="fullscreenIcon"></i> <span class="hidden sm:inline" id="fullscreenText">Full Screen</span>
+                    </button>
+                </div>
+                <iframe src="{{ iframe }}" class="absolute inset-0 w-full h-full border-0" allowfullscreen></iframe>
             {% else %}
                 <div class="text-center p-8">
                     <i data-lucide="wrench" class="w-16 h-16 text-slate-300 mx-auto mb-4"></i>
@@ -50,4 +59,69 @@ layout: layouts/base.njk
     <div class="max-w-3xl mx-auto prose prose-lg prose-slate dark:prose-invert prose-a:text-primary hover:prose-a:text-orange-700">
         {{ content | safe }}
     </div>
+
+    <!-- Lihat Juga (Related Explorations) -->
+    <div class="mt-16 pt-8 border-t border-border max-w-3xl mx-auto">
+        <h3 class="font-bold text-2xl mb-6">Lihat Juga Eksplorasi Lainnya</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {% set relatedCount = 0 %}
+            {% for item in collections.explorations %}
+                {% if item.url != page.url and relatedCount < 2 %}
+                    <a href="{{ item.url }}" class="group flex gap-4 items-center bg-surface border border-border p-3 rounded-xl hover:shadow-md transition-all">
+                        {% if item.data.thumbnail %}
+                        <img src="{{ item.data.thumbnail | resolveAsset(item.inputPath) }}" class="w-20 h-20 object-cover rounded-lg flex-shrink-0">
+                        {% endif %}
+                        <div>
+                            <h4 class="font-bold text-sm group-hover:text-primary transition-colors leading-snug mb-1">{{ item.data.title }}</h4>
+                            <p class="text-xs text-textLight">{{ item.data.type | default('Eksplorasi') }}</p>
+                        </div>
+                    </a>
+                    {% set relatedCount = relatedCount + 1 %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 </div>
+
+<script>
+    function toggleIframeFullscreen() {
+        const container = document.getElementById('iframeContainer');
+        const icon = document.getElementById('fullscreenIcon');
+        const text = document.getElementById('fullscreenText');
+
+        if (!document.fullscreenElement) {
+            if (container.requestFullscreen) {
+                container.requestFullscreen();
+            } else if (container.webkitRequestFullscreen) { /* Safari */
+                container.webkitRequestFullscreen();
+            } else if (container.msRequestFullscreen) { /* IE11 */
+                container.msRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE11 */
+                document.msExitFullscreen();
+            }
+        }
+    }
+
+    // Listen for fullscreen change to update the button UI
+    document.addEventListener('fullscreenchange', (event) => {
+        const icon = document.getElementById('fullscreenIcon');
+        const text = document.getElementById('fullscreenText');
+        
+        if (document.fullscreenElement) {
+            // Entered fullscreen
+            icon.setAttribute('data-lucide', 'minimize');
+            text.innerText = 'Minimize';
+        } else {
+            // Exited fullscreen
+            icon.setAttribute('data-lucide', 'maximize');
+            text.innerText = 'Full Screen';
+        }
+        lucide.createIcons();
+    });
+</script>
