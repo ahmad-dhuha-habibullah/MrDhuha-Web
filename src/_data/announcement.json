@@ -2,7 +2,7 @@
   "enabled": false,
   "text": "Hi Curious People! Yuk baca",
   "background_color": "#9179b4",
-  "closable": true,
+  "closable": false,
   "link_url": "http://localhost:8080/content/articles/mengapa-bintang-berkelap-kelip/",
   "link_text": "article terbaru kami!"
 }
