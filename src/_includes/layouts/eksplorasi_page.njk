@@ -23,7 +23,7 @@ layout: layouts/base.njk
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for item in collections.explorations %}
             <article class="bg-surface border border-border rounded-xl overflow-hidden hover:shadow-lg transition-shadow group">
-                <a href="{{ item.url }}" class="block relative aspect-video bg-gray-100 overflow-hidden">
+                <a href="{{ item.url }}" class="block relative aspect-video bg-gray-100 dark:bg-slate-800 overflow-hidden">
                     {% if item.data.thumbnail %}
                     <img src="{{ item.data.thumbnail | resolveAsset(item.inputPath) }}" alt="{{ item.data.title }}" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
                     {% endif %}
