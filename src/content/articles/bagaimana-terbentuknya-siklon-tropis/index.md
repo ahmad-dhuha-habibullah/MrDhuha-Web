@@ -3,7 +3,7 @@ layout: layouts/article.njk
 title: Bagaimana Terbentuknya Siklon Tropis?
 description: Penjelasan lengkap dan ilmiah mengenai proses pembentukan siklon tropis, mulai dari kondisi awal hingga menjadi badai kuat yang dapat berdampak besar. Cocok untuk pembaca yang ingin memahami fenomena cuaca ekstrem ini.
 date: 2026-06-09
-thumbnail: pasted-image-1780974970648.png
+thumbnail: Dramatic_Views_of_Hurricane_Florence_from_the_International_Space_Station_From_9_12_(42828603210)_(cropped).jpg
 imageCaption: Badai Florence dilihat dari Stasiun Luar Angkasa Internasional pada 2018. Mata badai yang tenang, dinding mata (eyewall) yang ganas, serta pita hujan (rainbands) yang melingkar merupakan struktur khas yang ditemukan pada siklon tropis yang telah matang.
 series: Belajar Iklim
 author: Mr Dhuha
