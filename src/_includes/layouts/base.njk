@@ -220,11 +220,17 @@
             
             if (icon && text) {
                 const isBookmarked = bookmarks.some(b => currentUrl.includes(b.url) && b.url !== '/');
+                // The icon could be the <i> tag or the initialized <svg>
+                const btn = icon.closest('button');
                 if (isBookmarked) {
-                    icon.setAttribute('fill', 'currentColor');
+                    icon.classList.add('text-primary', 'fill-current');
+                    text.classList.add('text-primary');
+                    if (btn) btn.classList.add('border-primary', 'bg-orange-50', 'dark:bg-orange-900/20');
                     text.innerText = 'Tersimpan';
                 } else {
-                    icon.setAttribute('fill', 'none');
+                    icon.classList.remove('text-primary', 'fill-current');
+                    text.classList.remove('text-primary');
+                    if (btn) btn.classList.remove('border-primary', 'bg-orange-50', 'dark:bg-orange-900/20');
                     text.innerText = 'Simpan';
                 }
             }

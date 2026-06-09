@@ -148,3 +148,20 @@ collections:
       - {label: "Tags", name: "tags", widget: "list"}
       - {label: "Reading Time (mins)", name: "readingTime", widget: "number"}
       - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "explorations"
+    label: "Explorations"
+    folder: "src/content/explorations"
+    create: true
+    path: "{{slug}}/index"
+    media_folder: ""
+    public_folder: ""
+    fields:
+      - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/eksplorasi.njk"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", required: false}
+      - {label: "Thumbnail", name: "thumbnail", widget: "image"}
+      - {label: "Type (e.g., Data Interaktif)", name: "type", widget: "string", default: "Data Interaktif"}
+      - {label: "Iframe URL or Path (e.g. https://... or /assets/sim.html)", name: "iframe", widget: "string", required: false, hint: "Paste a live URL or the path to an uploaded HTML file."}
+      - {label: "Body (Description)", name: "body", widget: "markdown", required: false}
