@@ -77,12 +77,12 @@ module.exports = function(eleventyConfig) {
 
   // Custom filters to get previous and next items in a series
   eleventyConfig.addFilter("getPreviousInSeries", function(currentItem, collections) {
-    if (!currentItem.data.series) return null;
+    if (!currentItem || !currentItem.data || !currentItem.data.series) return null;
     const series = currentItem.data.series;
     
     // Combine both articles and videos, then filter by series
     const allItems = [...(collections.articles || []), ...(collections.videos || [])];
-    const seriesItems = allItems.filter(item => item.data.series === series);
+    const seriesItems = allItems.filter(item => item && item.data && item.data.series === series);
     
     // Sort chronologically (oldest first) so that "Next" means a newer post.
     // Wait, the collections.articles is sorted b.date - a.date (newest first).
@@ -97,11 +97,11 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addFilter("getNextInSeries", function(currentItem, collections) {
-    if (!currentItem.data.series) return null;
+    if (!currentItem || !currentItem.data || !currentItem.data.series) return null;
     const series = currentItem.data.series;
     
     const allItems = [...(collections.articles || []), ...(collections.videos || [])];
-    const seriesItems = allItems.filter(item => item.data.series === series);
+    const seriesItems = allItems.filter(item => item && item.data && item.data.series === series);
     
     seriesItems.sort((a, b) => a.date - b.date);
     
