@@ -141,6 +141,44 @@ body {
     color: inherit;
 }
 
+/* Markdown Table Styles */
+.article-content table {
+    width: 100%;
+    margin-bottom: 2rem;
+    border-collapse: collapse;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+}
+
+.article-content th,
+.article-content td {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+}
+
+.article-content th {
+    background-color: var(--color-surface);
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.article-content tbody tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.article-content tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .article-content tbody tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+[data-theme="dark"] .article-content tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
 .nav-link {
     transition: color 0.2s ease;
 }
