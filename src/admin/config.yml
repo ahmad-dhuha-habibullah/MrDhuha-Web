@@ -7,6 +7,10 @@ backend:
 media_folder: "src/assets/images"
 public_folder: "/assets/images"
 
+preview_styles:
+  - "/assets/css/style.css"
+  - "/assets/css/admin.css"
+
 collections:
   - name: "pages"
     label: "Halaman Statis"
@@ -19,6 +23,8 @@ collections:
           - {label: "SEO Title", name: "title", widget: "string"}
           - {label: "Hero Title", name: "hero_title", widget: "string"}
           - {label: "Hero Subtitle", name: "hero_subtitle", widget: "text"}
+          - {label: "Hero Image", name: "hero_image", widget: "image", required: false}
+          - {label: "Hero Video (WebM)", name: "hero_video", widget: "file", required: false}
           - {label: "Section: Artikel Terbaru", name: "section_articles_title", widget: "string", default: "Artikel Terbaru"}
           - {label: "Section: Video Terbaru", name: "section_videos_title", widget: "string", default: "Video Terbaru"}
           - {label: "Section: Jelajahi Topik", name: "section_topics_title", widget: "string", default: "Jelajahi Topik"}

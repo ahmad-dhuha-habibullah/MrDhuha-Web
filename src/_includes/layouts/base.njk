@@ -6,7 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title | default(site.name) }}</title>
     <meta name="description" content="{{ description | default(site.description) }}">
+    <meta name="author" content="{{ author | default(site.author) }}">
     
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="{{ title | default(site.name) }}">
+    <meta property="og:description" content="{{ description | default(site.description) }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    {% if thumbnail %}
+    <meta property="og:image" content="{{ site.url }}{{ thumbnail | resolveAsset(page.inputPath) }}">
+    {% else %}
+    <meta property="og:image" content="{{ site.url }}/assets/MrDhuhaLogo.png">
+    {% endif %}
+
+    <!-- Google Search Console Verification (Replace content with your actual code later) -->
+    <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE_HERE" />
     <!-- CSS -->
     <link rel="stylesheet" href="/assets/css/style.css">
     
@@ -219,6 +233,39 @@
         // Run on load
         document.addEventListener('DOMContentLoaded', () => {
             updateBookmarkUI();
+
+            // Add copy buttons to code blocks
+            document.querySelectorAll('.article-content pre').forEach((pre) => {
+                // Wrap pre in a relative container
+                const wrapper = document.createElement('div');
+                wrapper.className = 'relative group mb-6';
+                pre.parentNode.insertBefore(wrapper, pre);
+                wrapper.appendChild(pre);
+                
+                // Remove existing bottom margin from pre since wrapper has it
+                pre.style.marginBottom = '0';
+
+                // Create button
+                const btn = document.createElement('button');
+                btn.className = 'absolute top-2 right-2 bg-slate-700 hover:bg-primary text-white p-2 rounded opacity-0 group-hover:opacity-100 transition-all shadow-md focus:opacity-100 outline-none';
+                btn.title = "Salin kode";
+                btn.innerHTML = '<i data-lucide="copy" class="w-4 h-4"></i>';
+                wrapper.appendChild(btn);
+
+                btn.addEventListener('click', () => {
+                    navigator.clipboard.writeText(pre.textContent.trim()).then(() => {
+                        btn.innerHTML = '<i data-lucide="check" class="w-4 h-4 text-green-400"></i>';
+                        lucide.createIcons({ root: wrapper });
+                        setTimeout(() => {
+                            btn.innerHTML = '<i data-lucide="copy" class="w-4 h-4"></i>';
+                            lucide.createIcons({ root: wrapper });
+                        }, 2000);
+                    });
+                });
+            });
+            
+            // Re-initialize icons for newly injected buttons
+            lucide.createIcons();
         });
     </script>
 </body>

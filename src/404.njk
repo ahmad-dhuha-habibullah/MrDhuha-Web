@@ -1,0 +1,42 @@
+---
+layout: layouts/base.njk
+title: "404: Halaman Tidak Ditemukan"
+permalink: 404.html
+---
+
+<div class="container mx-auto px-4 py-20 flex flex-col items-center justify-center text-center min-h-[60vh]">
+    
+    <!-- Animated/Creative Graphic Area -->
+    <div class="relative mb-8 group">
+        <!-- Floating Telescope Icon -->
+        <div class="w-32 h-32 md:w-40 md:h-40 bg-orange-100 dark:bg-slate-800 rounded-full flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform duration-700">
+            <i data-lucide="telescope" class="w-16 h-16 md:w-20 md:h-20 text-primary animate-[bounce_3s_ease-in-out_infinite]"></i>
+        </div>
+        <!-- Decorative Stars/Dots -->
+        <i data-lucide="sparkles" class="absolute top-0 right-[-20px] w-6 h-6 text-yellow-400 opacity-80 animate-pulse"></i>
+        <i data-lucide="star" class="absolute bottom-4 left-[-10px] w-4 h-4 text-orange-300 opacity-60 animate-bounce"></i>
+    </div>
+
+    <!-- Text Content -->
+    <h1 class="text-6xl md:text-8xl font-extrabold text-text mb-4 tracking-tighter">
+        40<span class="text-primary">4</span>
+    </h1>
+    <h2 class="text-2xl md:text-3xl font-bold text-text mb-4">Houston, kita kehilangan sinyal!</h2>
+    
+    <p class="text-textLight text-lg max-w-lg mb-10 font-serif">
+        Sepertinya halaman atau data yang Anda cari tidak dapat ditemukan di alam semesta ini. Mungkin sudah berpindah orbit, atau memang belum pernah tercipta.
+    </p>
+
+    <!-- Navigation Options -->
+    <div class="flex flex-col sm:flex-row gap-4">
+        <a href="/" class="inline-flex items-center justify-center gap-2 bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-orange-600 transition-colors shadow-lg hover:shadow-orange-500/30">
+            <i data-lucide="home" class="w-5 h-5"></i>
+            Kembali ke Bumi (Beranda)
+        </a>
+        <a href="/search/" class="inline-flex items-center justify-center gap-2 bg-surface border-2 border-border text-text font-bold py-3 px-8 rounded-full hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors">
+            <i data-lucide="search" class="w-5 h-5"></i>
+            Mulai Pencarian Baru
+        </a>
+    </div>
+
+</div>

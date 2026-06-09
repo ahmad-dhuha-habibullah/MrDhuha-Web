@@ -2,7 +2,7 @@
 <article class="bg-surface rounded-xl border border-border overflow-hidden card-hover flex flex-col h-full">
     <a href="{{ item.url }}" class="block relative aspect-[16/9] overflow-hidden bg-gray-100 group">
         {% if item.data.thumbnail %}
-            <img src="{{ item.data.thumbnail | resolveAsset(item.url) }}" alt="{{ item.data.title }}" class="object-cover w-full h-full">
+            <img src="{{ item.data.thumbnail | resolveAsset(item.inputPath) }}" alt="{{ item.data.title }}" class="object-cover w-full h-full">
         {% endif %}
         
         {% if isVideo %}

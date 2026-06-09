@@ -18,13 +18,25 @@ module.exports = function(eleventyConfig) {
   });
 
   // Custom filter for resolving colocated assets
-  eleventyConfig.addFilter("resolveAsset", function(assetPath, pageUrl) {
+  eleventyConfig.addFilter("resolveAsset", function(assetPath, inputPath) {
     if (!assetPath) return "";
-    // If the path is relative (starts with "./"), resolve it against the page URL
-    if (assetPath.startsWith("./")) {
-      return pageUrl + assetPath.slice(2);
+    
+    // If the path is already absolute or a URL, return as is
+    if (assetPath.startsWith("/") || assetPath.startsWith("http")) {
+      return assetPath;
     }
-    return assetPath;
+    
+    // Otherwise, it's a relative path (e.g. from Sveltia CMS)
+    // Sveltia saves the image alongside the markdown file.
+    // Example inputPath: "./src/content/articles/slug/index.md"
+    // We want the output to be: "/content/articles/slug/image.jpg"
+    
+    let dir = inputPath.replace(/^\.\/src/, ""); // Remove ./src
+    dir = dir.substring(0, dir.lastIndexOf("/") + 1); // Get directory part
+    
+    let cleanAssetPath = assetPath.replace(/^\.\//, ""); // Remove leading ./ from asset
+    
+    return dir + cleanAssetPath;
   });
 
   // Custom filter for readable dates (e.g. "12 Juni 2024")

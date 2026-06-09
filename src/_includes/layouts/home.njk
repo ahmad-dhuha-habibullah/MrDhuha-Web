@@ -7,7 +7,14 @@ layout: layouts/base.njk
 <section class="bg-surface py-16 lg:py-24 border-b border-border relative overflow-hidden">
     <!-- Background Image -->
     <div class="absolute inset-0 z-0">
-        <img src="/assets/images/hero.jpg" alt="Background" class="w-full h-full object-cover dark:opacity-80">
+        {% if hero_video %}
+        <video autoplay loop muted playsinline class="w-full h-full object-cover dark:opacity-80">
+            <source src="{{ hero_video }}" type="video/webm">
+            <img src="{{ hero_image | default('/assets/images/hero.jpg') }}" alt="Background" class="w-full h-full object-cover dark:opacity-80">
+        </video>
+        {% else %}
+        <img src="{{ hero_image | default('/assets/images/hero.jpg') }}" alt="Background" class="w-full h-full object-cover dark:opacity-80">
+        {% endif %}
         <!-- Left-to-Right Gradient Overlay -->
         <div class="absolute inset-0 bg-gradient-to-r from-surface via-surface/95 via-40% to-transparent"></div>
     </div>
@@ -111,7 +118,7 @@ layout: layouts/base.njk
                 {% if loop.index0 < 4 %}
                 <a href="{{ item.url }}" class="group block relative aspect-[16/9] md:aspect-[3/4] overflow-hidden rounded-xl bg-slate-900 border border-border hover:shadow-xl transition-shadow">
                     {% if item.data.thumbnail %}
-                        <img src="{{ item.data.thumbnail | resolveAsset(item.url) }}" alt="{{ item.data.title }}" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity group-hover:scale-105 duration-500">
+                        <img src="{{ item.data.thumbnail | resolveAsset(item.inputPath) }}" alt="{{ item.data.title }}" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity group-hover:scale-105 duration-500">
                     {% endif %}
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
                     <div class="absolute bottom-4 left-4 right-4">

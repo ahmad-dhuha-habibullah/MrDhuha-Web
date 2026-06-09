@@ -20,7 +20,7 @@ layout: layouts/base.njk
             <article class="bg-surface rounded-xl border border-border overflow-hidden flex flex-col hover:shadow-xl transition-shadow group">
                 <a href="{{ item.url }}" class="relative aspect-[3/4] overflow-hidden bg-slate-900 block">
                     {% if item.data.thumbnail %}
-                    <img src="{{ item.data.thumbnail | resolveAsset(item.url) }}" alt="{{ item.data.title }}" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition-opacity group-hover:scale-105 duration-500">
+                    <img src="{{ item.data.thumbnail | resolveAsset(item.inputPath) }}" alt="{{ item.data.title }}" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition-opacity group-hover:scale-105 duration-500">
                     {% endif %}
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
                     

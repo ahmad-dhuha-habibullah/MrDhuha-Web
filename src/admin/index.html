@@ -8,6 +8,16 @@
   </head>
   <body>
     <!-- Include the script that builds the page and powers Sveltia CMS -->
-    <script type="module" src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+    <script type="module" src="https://unpkg.com/@sveltia/cms@0.166.1/dist/sveltia-cms.js"></script>
+    <script>
+      // Wait for Sveltia CMS to initialize and register preview styles
+      const initCMS = setInterval(() => {
+        if (window.CMS) {
+          window.CMS.registerPreviewStyle("/assets/css/style.css");
+          window.CMS.registerPreviewStyle("/assets/css/admin.css");
+          clearInterval(initCMS);
+        }
+      }, 100);
+    </script>
   </body>
 </html>

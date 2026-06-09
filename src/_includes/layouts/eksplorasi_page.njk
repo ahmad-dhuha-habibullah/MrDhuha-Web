@@ -25,7 +25,7 @@ layout: layouts/base.njk
             <article class="bg-surface border border-border rounded-xl overflow-hidden hover:shadow-lg transition-shadow group">
                 <a href="{{ item.url }}" class="block relative aspect-video bg-gray-100 overflow-hidden">
                     {% if item.data.thumbnail %}
-                    <img src="{{ item.data.thumbnail | resolveAsset(item.url) }}" alt="{{ item.data.title }}" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
+                    <img src="{{ item.data.thumbnail | resolveAsset(item.inputPath) }}" alt="{{ item.data.title }}" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
                     {% endif %}
                     <div class="absolute top-4 left-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded text-xs font-bold text-primary uppercase tracking-wider">
                         {{ item.data.type | default('Eksplorasi') }}

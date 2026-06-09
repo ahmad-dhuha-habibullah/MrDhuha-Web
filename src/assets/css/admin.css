@@ -1,0 +1,94 @@
+/* Admin specific styles for Sveltia CMS Rich Text Editor and Preview */
+
+/* Base font definitions mimicking site input.css */
+:root, :host {
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-serif: "Merriweather", serif;
+  --text: #1E293B;
+  --text-light: #64748B;
+  --primary: #E05A11;
+}
+
+:root[data-theme="dark"], :host([data-theme="dark"]) {
+  --text: #F1F5F9;
+  --text-light: #94A3B8;
+  --primary: #F97316;
+}
+
+/* Sveltia CMS ProseMirror Editor overrides */
+.sveltia-cms-editor, 
+.ProseMirror,
+/* Preview pane container if any */
+body {
+    font-family: var(--font-serif);
+    color: var(--text-light);
+    line-height: 1.8;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6,
+.sveltia-cms-editor h1, .sveltia-cms-editor h2, .sveltia-cms-editor h3,
+.ProseMirror h1, .ProseMirror h2, .ProseMirror h3 {
+    font-family: var(--font-sans) !important;
+    font-weight: 700 !important;
+    color: var(--text) !important;
+    margin-top: 2rem !important;
+    margin-bottom: 1rem !important;
+    line-height: 1.2 !important;
+}
+
+h1, .ProseMirror h1 { font-size: 2.25rem !important; }
+h2, .ProseMirror h2 { font-size: 1.875rem !important; }
+h3, .ProseMirror h3 { font-size: 1.5rem !important; }
+h4, .ProseMirror h4 { font-size: 1.25rem !important; }
+h5, .ProseMirror h5 { font-size: 1.125rem !important; }
+h6, .ProseMirror h6 { font-size: 1rem !important; }
+
+/* Paragraphs */
+p, .sveltia-cms-editor p, .ProseMirror p {
+    font-family: var(--font-serif) !important;
+    font-size: 1.125rem !important;
+    margin-bottom: 1.5rem !important;
+    color: var(--text-light) !important;
+    text-align: justify !important;
+}
+
+/* Lists */
+ul, .sveltia-cms-editor ul, .ProseMirror ul {
+    list-style-type: disc !important;
+    list-style-position: outside !important;
+    margin-left: 1.5rem !important;
+    padding-left: 0.5rem !important;
+    margin-bottom: 1.5rem !important;
+    font-family: var(--font-serif) !important;
+    font-size: 1.125rem !important;
+    color: var(--text-light) !important;
+}
+
+ol, .sveltia-cms-editor ol, .ProseMirror ol {
+    list-style-type: decimal !important;
+    list-style-position: outside !important;
+    margin-left: 1.5rem !important;
+    padding-left: 0.5rem !important;
+    margin-bottom: 1.5rem !important;
+    font-family: var(--font-serif) !important;
+    font-size: 1.125rem !important;
+    color: var(--text-light) !important;
+}
+
+li, .sveltia-cms-editor li, .ProseMirror li {
+    margin-bottom: 0.5rem !important;
+}
+
+/* Links */
+a, .sveltia-cms-editor a, .ProseMirror a {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+/* Preview specific container mimics .article-content .max-w-3xl */
+body {
+    max-width: 48rem; /* 3xl */
+    margin: 0 auto;
+    padding: 2rem;
+}
