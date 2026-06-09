@@ -1,14 +1,18 @@
 ---
-title: "Modul 0: Pengenalan MATLAB untuk Sains Atmosfer dan Kelautan"
-description: "Sebelum membahas data iklim atau toolbox canggih, kita perlu memahami terlebih dahulu apa itu MATLAB, bagaimana cara kerjanya, dan mengapa ia menjadi pilihan."
-date: 2026-06-01
-thumbnail: "https://d1d1c1tnh6i0t6.cloudfront.net/wp-content/uploads/sites/2/2020/05/matlab-logo-227x300.jpg"
-author: "Mr Dhuha"
-series: "Belajar MATLAB"
-topic: "Sains Data"
-tags: ["matlab", "tutorial", "sains data"]
-readingTime: 6
 layout: layouts/article.njk
+title: 'Modul 0: Pengenalan MATLAB untuk Sains Atmosfer dan Kelautan'
+description: Sebelum membahas data iklim atau toolbox canggih, kita perlu memahami terlebih dahulu apa itu MATLAB, bagaimana cara kerjanya, dan mengapa ia menjadi pilihan.
+date: 2026-06-01
+thumbnail: https://d1d1c1tnh6i0t6.cloudfront.net/wp-content/uploads/sites/2/2020/05/matlab-logo-227x300.jpg
+imageCaption: ''
+author: Mr Dhuha
+tags:
+  - matlab
+  - tutorial
+  - sains data
+readingTime: 6
+series: Belajar MATLAB
+topic: Sains Data
 ---
 
 Sebelum membahas data iklim atau toolbox canggih, kita perlu memahami terlebih dahulu apa itu MATLAB, bagaimana cara kerjanya, dan mengapa ia menjadi pilihan di banyak laboratorium penelitian di seluruh dunia — termasuk di Indonesia.
@@ -27,6 +31,7 @@ Nama MATLAB sendiri merupakan singkatan dari **MATrix LABoratory**, yang mencerm
 > - Digunakan di NASA, CERN, BMKG, dan ribuan universitas riset
 
 ### Siapa yang Menggunakan MATLAB di Indonesia?
+
 - BMKG — untuk pemrosesan data observasi dan model cuaca numerik
 - BRIN — untuk analisis data iklim dan riset kelautan
 - ITB, IPB, UGM, ITS — dalam mata kuliah dan thesis mahasiswa
@@ -58,8 +63,9 @@ Banyak kode riset di jurnal internasional ditulis dalam MATLAB. Memahami MATLAB 
 ## 0.3 Kelebihan dan Kekurangan MATLAB
 
 ### Kelebihan MATLAB
+
 | Aspek | Penjelasan |
-|---|---|
+| --- | --- |
 | Mudah dipelajari | Sintaks yang bersih dan intuitif untuk pemula |
 | Visualisasi sangat kuat | plot(), imagesc(), surf() langsung menghasilkan grafik bagus |
 | Toolbox saintifik | 100+ toolbox resmi yang sudah teruji secara ilmiah |
@@ -68,8 +74,9 @@ Banyak kode riset di jurnal internasional ditulis dalam MATLAB. Memahami MATLAB 
 | Dokumentasi kuat | help(), doc(), dan portal online yang komprehensif |
 
 ### Kekurangan MATLAB
+
 | Aspek | Penjelasan |
-|---|---|
+| --- | --- |
 | Berbayar | Lisensi komersial bisa sangat mahal; butuh lisensi kampus/institusi |
 | Ekosistem lebih kecil | Komunitas lebih kecil dibanding Python; lebih sedikit paket pihak ketiga |
 | Kurang fleksibel | Tidak ideal untuk aplikasi web, mobile, atau production software |
@@ -81,7 +88,7 @@ Banyak kode riset di jurnal internasional ditulis dalam MATLAB. Memahami MATLAB 
 Pertanyaan paling sering dari pemula: "Haruskah saya belajar MATLAB atau Python?" Jawabannya bergantung pada konteks dan tujuan Anda. Berikut perbandingan objektif keduanya:
 
 | Kriteria | MATLAB | Python |
-|---|---|---|
+| --- | --- | --- |
 | Harga | Berbayar (ada lisensi kampus) | Gratis & open source |
 | Kemudahan belajar | Sangat mudah untuk pemula | Mudah, kurva belajar sedikit lebih panjang |
 | Visualisasi | Sangat kuat, built-in | Kuat (matplotlib, seaborn, cartopy) |
@@ -93,7 +100,7 @@ Pertanyaan paling sering dari pemula: "Haruskah saya belajar MATLAB atau Python?
 | Climate Data Toolbox | Tersedia resmi | Tidak ada padanan langsung |
 | Legacy kode riset | Sangat banyak | Sedang berkembang |
 
-> *💡 Rekomendasi: Untuk pemula di bidang iklim/oseanografi Indonesia, mulai dari MATLAB karena kemudahannya. Setelah mahir, menambah Python akan jauh lebih mudah.*
+> _💡 Rekomendasi: Untuk pemula di bidang iklim/oseanografi Indonesia, mulai dari MATLAB karena kemudahannya. Setelah mahir, menambah Python akan jauh lebih mudah._
 
 ## 0.5 Instalasi MATLAB
 
@@ -105,7 +112,7 @@ Untuk menggunakan MATLAB, Anda membutuhkan lisensi yang valid. Beberapa opsi yan
 - **Trial Version:** MathWorks menyediakan trial 30 hari gratis.
 
 | Langkah | Aksi |
-|---|---|
+| --- | --- |
 | 1 | Buka mathworks.com dan buat akun MathWorks |
 | 2 | Pilih 'Get MATLAB' dan masukkan lisensi Anda |
 | 3 | Download installer sesuai OS (Windows/macOS/Linux) |
@@ -159,6 +166,7 @@ disp('Halo Dunia')
 ```
 
 MATLAB akan menampilkan:
+
 ```matlab
 Halo Dunia
 ```
@@ -200,7 +208,7 @@ whos                 % Tampilkan semua variabel di Workspace
 ```
 
 | Tipe Data | Keterangan | Contoh |
-|---|---|---|
+| --- | --- | --- |
 | double | Angka desimal (64-bit) — TIPE DEFAULT | `x = 3.14` |
 | single | Angka desimal (32-bit) — hemat memori | `x = single(3.14)` |
 | int32 | Bilangan bulat 32-bit | `x = int32(100)` |
@@ -303,4 +311,4 @@ ylabel('Latitude')
 title('Contoh Peta SST (Data Simulasi)')
 ```
 
-> *Selamat! Anda telah menyelesaikan Modul 0. Anda sekarang memahami dasar-dasar MATLAB yang cukup untuk mulai bekerja dengan data iklim nyata di modul-modul berikutnya.*
+> _Selamat! Anda telah menyelesaikan Modul 0. Anda sekarang memahami dasar-dasar MATLAB yang cukup untuk mulai bekerja dengan data iklim nyata di modul-modul berikutnya._
