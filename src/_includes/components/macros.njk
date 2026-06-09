@@ -41,7 +41,7 @@
                     {{ item.data.readingTime | default('5') }} menit baca &middot; {{ item.date | readableDate }}
                 {% endif %}
             </span>
-            <button class="hover:text-primary z-10 relative" aria-label="Simpan" onclick="event.preventDefault(); toggleBookmark('{{ item.url }}', '{{ item.data.title | escape }}')"><i data-lucide="bookmark" class="w-4 h-4"></i></button>
+            <button class="bookmark-btn-card hover:text-primary z-10 relative" aria-label="Simpan" data-bookmark-url="{{ item.url }}" onclick="event.preventDefault(); toggleBookmark('{{ item.url }}', '{{ item.data.title | escape }}')"><i data-lucide="bookmark" class="w-4 h-4"></i></button>
         </div>
     </div>
 </article>

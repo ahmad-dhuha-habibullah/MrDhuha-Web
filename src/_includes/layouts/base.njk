@@ -234,6 +234,23 @@
                     text.innerText = 'Simpan';
                 }
             }
+
+            // Update all bookmark buttons on article cards (like in index or topik pages)
+            const cardBtns = document.querySelectorAll('.bookmark-btn-card');
+            cardBtns.forEach(btn => {
+                const url = btn.getAttribute('data-bookmark-url');
+                // Use strict equality for cards because their url is exact
+                const isBookmarked = bookmarks.some(b => b.url === url);
+                const btnIcon = btn.querySelector('svg') || btn.querySelector('i');
+                
+                if (isBookmarked) {
+                    btn.classList.add('text-primary');
+                    if(btnIcon) btnIcon.classList.add('fill-current');
+                } else {
+                    btn.classList.remove('text-primary');
+                    if(btnIcon) btnIcon.classList.remove('fill-current');
+                }
+            });
         }
 
         // Run on load

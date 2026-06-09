@@ -23,7 +23,7 @@ module.exports = function(eleventyConfig) {
     
     // If the path is already absolute or a URL, return as is
     if (assetPath.startsWith("/") || assetPath.startsWith("http")) {
-      return assetPath;
+      return encodeURI(assetPath);
     }
     
     // Otherwise, it's a relative path (e.g. from Sveltia CMS)
@@ -36,7 +36,7 @@ module.exports = function(eleventyConfig) {
     
     let cleanAssetPath = assetPath.replace(/^\.\//, ""); // Remove leading ./ from asset
     
-    return dir + cleanAssetPath;
+    return encodeURI(dir + cleanAssetPath);
   });
 
   // Custom filter for readable dates (e.g. "12 Juni 2024")
