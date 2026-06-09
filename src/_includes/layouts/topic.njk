@@ -1,0 +1,36 @@
+---
+layout: layouts/base.njk
+---
+{% from "components/macros.njk" import contentCard %}
+
+<div class="container mx-auto px-4 lg:px-8 py-12">
+    <!-- Page Header -->
+    <div class="mb-12">
+        <nav class="flex items-center gap-2 text-sm text-textLight mb-4">
+            <a href="/" class="hover:text-primary transition-colors">Beranda</a>
+            <span><i data-lucide="chevron-right" class="w-4 h-4"></i></span>
+            <a href="/topik/" class="hover:text-primary transition-colors">Topik</a>
+            <span><i data-lucide="chevron-right" class="w-4 h-4"></i></span>
+            <span class="text-text font-medium truncate">{{ title }}</span>
+        </nav>
+        <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">{{ title }}</h1>
+        {% if description %}
+        <p class="text-lg text-textLight font-serif max-w-3xl">{{ description }}</p>
+        {% endif %}
+        {% if content %}
+        <div class="prose prose-lg prose-slate dark:prose-invert mt-6 max-w-4xl">
+            {{ content | safe }}
+        </div>
+        {% endif %}
+    </div>
+
+    <h2 class="text-2xl font-bold text-text mb-6">Artikel & Video</h2>
+    <!-- Content Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        {% set topicItems = itemList | getResolvedList(collections) %}
+        {% for item in topicItems %}
+            {% set isVideo = "videos" in item.inputPath %}
+            {{ contentCard(item, isVideo) }}
+        {% endfor %}
+    </div>
+</div>

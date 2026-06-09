@@ -1,5 +1,8 @@
 {
-  "enabled": false,
-  "text": "Selamat datang di MrDhuha Web! 🚀",
-  "background_color": "#1e293b"
+  "enabled": true,
+  "text": "Hi Curious People! Yuk baca",
+  "background_color": "#9179b4",
+  "closable": true,
+  "link_url": "http://localhost:8080/content/articles/mengapa-bintang-berkelap-kelip/",
+  "link_text": "article terbaru kami!"
 }

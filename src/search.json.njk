@@ -2,22 +2,69 @@
 permalink: /search.json
 ---
 [
+  {% set comma = false %}
+  
   {% for item in collections.articles %}
+  {% if comma %},{% endif %}
   {
     "title": "{{ item.data.title | replace('"', '\\"') }}",
     "url": "{{ item.url }}",
     "type": "Artikel",
     "topic": "{{ item.data.topic }}",
-    "description": "{{ item.data.description | replace('"', '\\"') }}"
-  }{% if not loop.last or collections.videos.length > 0 %},{% endif %}
+    "description": "{{ item.data.description | replace('"', '\\"') }}",
+    "thumbnail": "{{ item.data.thumbnail }}",
+    "date": "{{ item.date }}"
+  }
+  {% set comma = true %}
   {% endfor %}
+  
   {% for item in collections.videos %}
+  {% if comma %},{% endif %}
   {
     "title": "{{ item.data.title | replace('"', '\\"') }}",
     "url": "{{ item.url }}",
     "type": "Video",
     "topic": "{{ item.data.topic }}",
-    "description": "{{ item.data.description | replace('"', '\\"') }}"
-  }{% if not loop.last %},{% endif %}
+    "description": "{{ item.data.description | replace('"', '\\"') }}",
+    "thumbnail": "{{ item.data.thumbnail }}",
+    "date": "{{ item.date }}"
+  }
+  {% set comma = true %}
+  {% endfor %}
+
+  {% for item in collections.explorations %}
+  {% if comma %},{% endif %}
+  {
+    "title": "{{ item.data.title | replace('"', '\\"') }}",
+    "url": "{{ item.url }}",
+    "type": "Eksplorasi",
+    "description": "{{ item.data.description | replace('"', '\\"') }}",
+    "thumbnail": "{{ item.data.thumbnail }}"
+  }
+  {% set comma = true %}
+  {% endfor %}
+
+  {% for item in collections.series %}
+  {% if comma %},{% endif %}
+  {
+    "title": "{{ item.data.title | replace('"', '\\"') }}",
+    "url": "{{ item.url }}",
+    "type": "Series",
+    "description": "{{ item.data.description | replace('"', '\\"') }}",
+    "thumbnail": "{{ item.data.thumbnail }}"
+  }
+  {% set comma = true %}
+  {% endfor %}
+
+  {% for item in collections.topics %}
+  {% if comma %},{% endif %}
+  {
+    "title": "{{ item.data.title | replace('"', '\\"') }}",
+    "url": "{{ item.url }}",
+    "type": "Topik",
+    "description": "{{ item.data.description | replace('"', '\\"') }}",
+    "thumbnail": "{{ item.data.thumbnail }}"
+  }
+  {% set comma = true %}
   {% endfor %}
 ]

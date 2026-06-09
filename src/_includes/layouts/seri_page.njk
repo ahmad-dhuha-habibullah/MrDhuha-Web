@@ -3,9 +3,21 @@ layout: layouts/base.njk
 ---
 
 <div class="container mx-auto px-4 lg:px-8 py-12">
-    <div class="mb-12 text-center max-w-2xl mx-auto">
-        <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">{{ page_heading }}</h1>
-        <p class="text-lg text-textLight font-serif">{{ page_description }}</p>
+    <div class="mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+        <div>
+            <nav class="flex items-center gap-2 text-sm text-textLight mb-4">
+                <a href="/" class="hover:text-primary transition-colors">Beranda</a>
+                <span><i data-lucide="chevron-right" class="w-4 h-4"></i></span>
+                <span class="text-text font-medium truncate">Seri</span>
+            </nav>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-text mb-4">{{ page_heading }}</h1>
+            <p class="text-lg text-textLight font-serif">{{ page_description }}</p>
+        </div>
+        
+        <div class="w-full md:w-64 relative">
+            <input type="text" id="globalPageSearchInput" data-collection="Series" placeholder="Cari series..." class="w-full bg-surface border border-border rounded-full py-2 px-4 pr-10 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-text">
+            <i data-lucide="search" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-textLight"></i>
+        </div>
     </div>
 
     {% if content %}
@@ -15,7 +27,7 @@ layout: layouts/base.njk
     </div>
     {% endif %}
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+    <div id="contentGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
         {% for item in collections.series %}
             <article class="bg-surface rounded-xl border border-border overflow-hidden flex flex-col hover:shadow-xl transition-shadow group">
                 <a href="{{ item.url }}" class="relative aspect-[3/4] overflow-hidden bg-slate-900 block">
@@ -30,7 +42,8 @@ layout: layouts/base.njk
                     
                     <div class="absolute bottom-4 left-4 right-4 text-white">
                         <div class="flex items-center gap-3 text-xs font-medium text-gray-300 mb-2">
-                            <span>{{ item.data.stats | default('Beberapa artikel') }}</span>
+                            {% set itemCount = (item.data.itemList | default([])) | length %}
+                            <span>{{ itemCount }} Bagian</span>
                         </div>
                     </div>
                 </a>
@@ -50,3 +63,73 @@ layout: layouts/base.njk
         {% endfor %}
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('globalPageSearchInput');
+        const grid = document.getElementById('contentGrid');
+        const originalContent = grid ? grid.innerHTML : '';
+        
+        if (!searchInput || !grid) return;
+        
+        const collectionType = searchInput.getAttribute('data-collection');
+        
+        function renderSearchCard(item) {
+            return `
+            <article class="bg-surface rounded-xl border border-border overflow-hidden flex flex-col hover:shadow-xl transition-shadow group h-full">
+                <a href="${item.url}" class="relative aspect-[3/4] overflow-hidden bg-slate-900 block">
+                    ${item.thumbnail ? `<img src="${item.thumbnail}" alt="${item.title}" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition-opacity group-hover:scale-105 duration-500">` : ''}
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-surface/20 backdrop-blur-md text-white text-xs font-bold px-2 py-1 rounded border border-white/30">Series Belajar</span>
+                    </div>
+                </a>
+                
+                <div class="p-6 flex flex-col flex-grow">
+                    <a href="${item.url}" class="block group-hover:text-primary transition-colors">
+                        <h3 class="font-bold text-xl leading-snug mb-3 text-text group-hover:text-primary transition-colors">${item.title}</h3>
+                    </a>
+                    <p class="text-sm text-textLight mb-6">${(item.description || '').substring(0, 80)}...</p>
+                    <div class="mt-auto">
+                        <a href="${item.url}" class="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-orange-700 transition-colors">
+                            Lihat series <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </article>`;
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.trim().toLowerCase();
+            
+            if (!query) {
+                grid.innerHTML = originalContent;
+                lucide.createIcons();
+                return;
+            }
+            
+            fetch('/search.json')
+                .then(res => res.json())
+                .then(data => {
+                    const results = data.filter(item => 
+                        item.type === collectionType && 
+                        (item.title.toLowerCase().includes(query) || item.description.toLowerCase().includes(query))
+                    );
+                    
+                    if (results.length === 0) {
+                        grid.innerHTML = `<p class="col-span-full text-center text-textLight py-8">Tidak ada hasil yang ditemukan untuk "<b>${query}</b>" di ${collectionType}.</p>`;
+                        return;
+                    }
+                    
+                    let html = '';
+                    results.forEach(item => {
+                        html += renderSearchCard(item);
+                    });
+                    
+                    grid.innerHTML = html;
+                    lucide.createIcons();
+                });
+        });
+    });
+</script>

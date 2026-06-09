@@ -50,16 +50,11 @@
 
 <body class="antialiased flex flex-col min-h-screen">
 
-    <!-- Announcement Bar -->
-    {% if announcement.enabled %}
-    <div style="background-color: {{ announcement.background_color | default('#1e293b') }}" class="text-white text-sm font-medium py-2 px-4 text-center">
-        {{ announcement.text | safe }}
-    </div>
-    {% endif %}
-
-    <!-- Navigation -->
-    <header class="sticky top-0 z-50 bg-surface border-b border-border">
-        <div class="container mx-auto px-4 lg:px-8 py-4 flex justify-between items-center">
+    <!-- Sticky Container for Nav + Announcement -->
+    <div class="sticky top-0 z-50 flex flex-col">
+        <!-- Navigation -->
+        <header class="bg-surface border-b border-border">
+            <div class="container mx-auto px-4 lg:px-8 py-4 flex justify-between items-center">
             <!-- Logo -->
             <a href="/" class="flex items-center gap-3">
                 <img src="/assets/MrDhuhaLogo.png" alt="Mr Dhuha Logo" class="w-10 h-10 object-contain">
@@ -104,6 +99,24 @@
             <a href="/tentang/" class="nav-link block py-2 {% if '/tentang/' in page.url %}text-primary font-bold{% endif %}">Tentang</a>
         </nav>
     </header>
+
+    <!-- Announcement Bar -->
+    {% if announcement.enabled %}
+    <div id="announcementBar" style="background-color: {{ announcement.background_color | default('#1e293b') }}" class="text-white text-sm font-medium py-2 px-4 flex justify-center items-center w-full z-40 border-b border-black/10 shadow-sm relative transition-all duration-300">
+        <div class="text-center px-8">
+            {{ announcement.text | safe }}
+            {% if announcement.link_url and announcement.link_text %}
+            <a href="{{ announcement.link_url }}" class="ml-2 underline font-bold hover:text-primary transition-colors">{{ announcement.link_text }}</a>
+            {% endif %}
+        </div>
+        {% if announcement.closable %}
+        <button onclick="closeAnnouncement()" class="absolute right-4 top-1/2 transform -translate-y-1/2 hover:opacity-75 transition-opacity" aria-label="Tutup pengumuman">
+            <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+        {% endif %}
+    </div>
+    {% endif %}
+    </div>
 
     <!-- Main Content Area -->
     <main id="app-root" class="flex-grow">
@@ -153,8 +166,28 @@
                 <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-textLight"></i>
                 <input type="text" id="modalSearchInput" placeholder="Cari artikel, video, atau topik..." class="w-full bg-white dark:bg-slate-900 border-2 border-border rounded-2xl py-4 pl-14 pr-4 text-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all text-text shadow-lg">
             </div>
-            <div id="modalSearchResults" class="space-y-4 max-h-[70vh] overflow-y-auto pb-8 pr-2 custom-scrollbar">
+            
+            <div id="modalSearchState" class="space-y-4 max-h-[70vh] overflow-y-auto pb-8 pr-2 custom-scrollbar">
+                <!-- Bookmarks will be shown here by default -->
+                <div id="modalBookmarksSection" class="hidden mb-6">
+                    <h3 class="text-lg font-bold text-text mb-4 flex items-center gap-2">
+                        <i data-lucide="bookmark" class="w-5 h-5 text-primary"></i>
+                        Halaman Tersimpan
+                    </h3>
+                    <div id="modalBookmarksList" class="space-y-3"></div>
+                </div>
+
+                <!-- Latest suggestions shown by default -->
+                <div id="modalSuggestionsSection" class="hidden">
+                    <h3 class="text-lg font-bold text-text mb-4 flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-5 h-5 text-primary"></i>
+                        Terbaru
+                    </h3>
+                    <div id="modalSuggestionsList" class="space-y-3"></div>
+                </div>
+
                 <!-- Search results injected here via JS -->
+                <div id="modalSearchResults" class="space-y-4 hidden"></div>
             </div>
         </div>
     </div>
@@ -396,6 +429,9 @@
                 document.body.style.overflow = 'hidden';
                 document.getElementById('modalSearchInput').focus();
                 
+                // Show bookmarks by default
+                renderBookmarksInModal();
+                
                 // Fetch index if not loaded
                 if (!fuse) {
                     fetch('/search.json')
@@ -407,7 +443,10 @@
                                 includeScore: true,
                                 threshold: 0.4
                             });
+                            renderSuggestionsInModal();
                         });
+                } else {
+                    renderSuggestionsInModal();
                 }
             } else {
                 modal.classList.add('hidden');
@@ -416,14 +455,80 @@
             }
         }
 
+        function renderSuggestionsInModal() {
+            const suggestionsSection = document.getElementById('modalSuggestionsSection');
+            const suggestionsList = document.getElementById('modalSuggestionsList');
+            const searchInput = document.getElementById('modalSearchInput');
+            
+            if (searchInput.value.trim() !== '' || !searchIndex) {
+                suggestionsSection.classList.add('hidden');
+                return;
+            }
+
+            suggestionsSection.classList.remove('hidden');
+            let html = '';
+            // Show top 5 latest items
+            searchIndex.slice(0, 5).forEach(item => {
+                html += `
+                <a href="${item.url}" class="block bg-surface border border-border p-4 rounded-xl hover:shadow-md hover:border-primary/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-lg text-text group-hover:text-primary transition-colors">${item.title}</h3>
+                        <span class="text-xs font-bold px-2 py-1 bg-slate-100 dark:bg-slate-800 text-textLight rounded uppercase tracking-wider">${item.type}</span>
+                    </div>
+                    <p class="text-sm text-textLight line-clamp-2">${item.description}</p>
+                </a>`;
+            });
+            suggestionsList.innerHTML = html;
+        }
+
+        function renderBookmarksInModal() {
+            let bookmarks = JSON.parse(localStorage.getItem('mrdhuha_bookmarks') || '[]');
+            const bookmarksSection = document.getElementById('modalBookmarksSection');
+            const bookmarksList = document.getElementById('modalBookmarksList');
+            const searchResults = document.getElementById('modalSearchResults');
+            const searchInput = document.getElementById('modalSearchInput');
+            
+            if (searchInput.value.trim() !== '') {
+                bookmarksSection.classList.add('hidden');
+                return;
+            }
+
+            searchResults.classList.add('hidden');
+
+            if (bookmarks.length > 0) {
+                bookmarksSection.classList.remove('hidden');
+                let html = '';
+                bookmarks.forEach(b => {
+                    html += `
+                    <a href="${b.url}" class="block bg-surface border border-border p-4 rounded-xl hover:shadow-md hover:border-primary/50 transition-all group flex items-center justify-between">
+                        <span class="font-bold text-base text-text group-hover:text-primary transition-colors">${b.title}</span>
+                        <i data-lucide="external-link" class="w-4 h-4 text-textLight group-hover:text-primary"></i>
+                    </a>`;
+                });
+                bookmarksList.innerHTML = html;
+                lucide.createIcons({ root: bookmarksList });
+            } else {
+                bookmarksSection.classList.add('hidden');
+            }
+        }
+
         document.getElementById('modalSearchInput')?.addEventListener('input', function(e) {
             const query = e.target.value;
             const resultsContainer = document.getElementById('modalSearchResults');
+            const bookmarksSection = document.getElementById('modalBookmarksSection');
+            const suggestionsSection = document.getElementById('modalSuggestionsSection');
             
             if (!query || query.trim() === '') {
                 resultsContainer.innerHTML = '';
+                resultsContainer.classList.add('hidden');
+                renderBookmarksInModal();
+                renderSuggestionsInModal();
                 return;
             }
+            
+            bookmarksSection.classList.add('hidden');
+            suggestionsSection.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
             
             if (!fuse) return;
             
@@ -449,6 +554,29 @@
             
             resultsContainer.innerHTML = html;
         });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const searchModal = document.getElementById('searchModal');
+                const promoModal = document.getElementById('promoModal');
+                if (searchModal && !searchModal.classList.contains('hidden')) {
+                    toggleSearchModal();
+                }
+                if (promoModal && !promoModal.classList.contains('hidden')) {
+                    closePromoModal();
+                }
+            }
+        });
+
+        function closeAnnouncement() {
+            document.getElementById('announcementBar').classList.add('hidden');
+            sessionStorage.setItem('announcementClosed', 'true');
+        }
+
+        if (sessionStorage.getItem('announcementClosed') === 'true') {
+            const ann = document.getElementById('announcementBar');
+            if (ann) ann.classList.add('hidden');
+        }
     </script>
 </body>
 

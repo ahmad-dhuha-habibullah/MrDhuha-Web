@@ -2,9 +2,10 @@
 layout: layouts/eksplorasi.njk
 title: Simulasi Kenaikan Suhu Global
 description: Jelajahi proyeksi kenaikan suhu rata-rata global di berbagai wilayah hingga tahun 2100 berdasarkan skenario emisi berbeda.
-date: ''
-thumbnail: ./hero.jpg
-type: Data Interaktif
+date: 2026-06-09
+thumbnail: https://picsum.photos/id/939/1920/1280.webp
+heroImage: /assets/images/hero.jpg
+type: Simulator Solar Panel
 iframe: https://ahmad-dhuha-habibullah.github.io/solar_tracker_simulator.html
 ---
 

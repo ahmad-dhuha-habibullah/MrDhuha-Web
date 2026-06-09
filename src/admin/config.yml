@@ -102,10 +102,56 @@ collections:
     fields:
       - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/series.njk"}
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Description", name: "description", widget: "text"}
-      - {label: "Thumbnail", name: "thumbnail", widget: "image"}
-      - {label: "Stats (e.g. 3 Bagian)", name: "stats", widget: "string", required: false}
+      - {label: "Description", name: "description", widget: "text", required: false}
+      - {label: "Thumbnail", name: "thumbnail", widget: "image", required: false}
+      - {label: "Hero Image", name: "heroImage", widget: "image", required: false, hint: "Banner besar di halaman seri. Jika kosong akan memakai thumbnail."}
+      - {label: "Stats", name: "stats", widget: "string", required: false}
+      - label: "Series Contents"
+        name: "itemList"
+        widget: "list"
+        required: false
+        types:
+          - label: "Article"
+            name: "article"
+            widget: "object"
+            fields:
+              - {label: "Article", name: "item", widget: "relation", collection: "articles", value_field: "title", search_fields: ["title"], display_fields: ["title"]}
+          - label: "Video"
+            name: "video"
+            widget: "object"
+            fields:
+              - {label: "Video", name: "item", widget: "relation", collection: "videos", value_field: "title", search_fields: ["title"], display_fields: ["title"]}
+      - {label: "Body", name: "body", widget: "markdown", required: false}
       - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", required: false}
+
+  - name: "topics"
+    label: "Topics"
+    folder: "src/content/topics"
+    create: true
+    path: "{{slug}}/index"
+    media_folder: ""
+    public_folder: ""
+    fields:
+      - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/topic.njk"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "text", required: false}
+      - {label: "Thumbnail", name: "thumbnail", widget: "image", required: false}
+      - label: "Topic Contents"
+        name: "itemList"
+        widget: "list"
+        required: false
+        types:
+          - label: "Article"
+            name: "article"
+            widget: "object"
+            fields:
+              - {label: "Article", name: "item", widget: "relation", collection: "articles", value_field: "title", search_fields: ["title"], display_fields: ["title"]}
+          - label: "Video"
+            name: "video"
+            widget: "object"
+            fields:
+              - {label: "Video", name: "item", widget: "relation", collection: "videos", value_field: "title", search_fields: ["title"], display_fields: ["title"]}
+      - {label: "Body", name: "body", widget: "markdown", required: false}
 
   - name: "videos"
     label: "Videos"
@@ -120,9 +166,7 @@ collections:
       - {label: "Description", name: "description", widget: "text"}
       - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
       - {label: "Thumbnail", name: "thumbnail", widget: "image"}
-      - {label: "Series", name: "series", widget: "relation", collection: "series", search_fields: ["title"], value_field: "title", display_fields: ["title"], required: false}
       - {label: "Author", name: "author", widget: "string", default: "Mr Dhuha"}
-      - {label: "Topic", name: "topic", widget: "string"}
       - {label: "Tags", name: "tags", widget: "list"}
       - {label: "Duration", name: "duration", widget: "string"}
       - {label: "YouTube ID", name: "youtube", widget: "string"}
@@ -142,9 +186,7 @@ collections:
       - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
       - {label: "Thumbnail", name: "thumbnail", widget: "image"}
       - {label: "Image Caption", name: "imageCaption", widget: "string", required: false}
-      - {label: "Series", name: "series", widget: "relation", collection: "series", search_fields: ["title"], value_field: "title", display_fields: ["title"], required: false}
       - {label: "Author", name: "author", widget: "string", default: "Mr Dhuha"}
-      - {label: "Topic", name: "topic", widget: "string"}
       - {label: "Tags", name: "tags", widget: "list"}
       - {label: "Reading Time (mins)", name: "readingTime", widget: "number"}
       - {label: "Body", name: "body", widget: "markdown"}
@@ -159,10 +201,11 @@ collections:
     fields:
       - {label: "Layout", name: "layout", widget: "hidden", default: "layouts/eksplorasi.njk"}
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Description", name: "description", widget: "text"}
-      - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", required: false}
+      - {label: "Description", name: "description", widget: "text", required: false}
+      - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
       - {label: "Thumbnail", name: "thumbnail", widget: "image"}
-      - {label: "Type (e.g., Data Interaktif)", name: "type", widget: "string", default: "Data Interaktif"}
+      - {label: "Hero Image", name: "heroImage", widget: "image", required: false}
+      - {label: "Type", name: "type", widget: "string", default: "Data Interaktif"}
       - {label: "Iframe URL or Path (e.g. https://... or /assets/sim.html)", name: "iframe", widget: "string", required: false, hint: "Paste a live URL or the path to an uploaded HTML file."}
       - {label: "Body (Description)", name: "body", widget: "markdown", required: false}
 
@@ -173,9 +216,12 @@ collections:
         name: "announcement"
         file: "src/_data/announcement.json"
         fields:
-          - {label: "Enabled", name: "enabled", widget: "boolean", default: false}
+          - {label: "Enabled", name: "enabled", widget: "boolean", default: false, required: false}
           - {label: "Text", name: "text", widget: "string"}
-          - {label: "Background Color", name: "background_color", widget: "color", required: false}
+          - {label: "Background Color", name: "background_color", widget: "color", default: "#1e293b", required: false}
+          - {label: "Closable", name: "closable", widget: "boolean", default: true, required: false}
+          - {label: "Link URL", name: "link_url", widget: "string", required: false}
+          - {label: "Link Text", name: "link_text", widget: "string", required: false}
       - label: "Promo CTA"
         name: "promo"
         file: "src/_data/promo.json"

@@ -63,51 +63,57 @@ module.exports = function(eleventyConfig) {
     return collectionApi.getFilteredByGlob("src/content/explorations/**/*.md").sort((a, b) => b.date - a.date);
   });
 
-  // Extract unique topics from articles and videos
+  // Topics Collection (from Markdown files instead of tag extraction)
   eleventyConfig.addCollection("topics", function(collectionApi) {
-    let topicSet = new Set();
-    const items = collectionApi.getFilteredByGlob(["src/content/articles/**/*.md", "src/content/videos/**/*.md"]);
-    items.forEach(item => {
-      if ('topic' in item.data) {
-        topicSet.add(item.data.topic);
+    return collectionApi.getFilteredByGlob("src/content/topics/**/*.md").sort((a, b) => a.data.title.localeCompare(b.data.title));
+  });
+
+  // Resolve an itemList from CMS into actual Eleventy items
+  eleventyConfig.addFilter("getResolvedList", function(itemList, collections) {
+    if (!itemList || !Array.isArray(itemList)) return [];
+    
+    return itemList.map(entry => {
+      if (entry.type === 'article' && collections.articles) {
+        return collections.articles.find(a => a.data.title === entry.item);
+      } else if (entry.type === 'video' && collections.videos) {
+        return collections.videos.find(v => v.data.title === entry.item);
       }
+      return null;
+    }).filter(item => item !== null);
+  });
+
+  // Find which series an article/video belongs to based on its title
+  eleventyConfig.addFilter("getSeriesForTitle", function(title, collections) {
+    if (!title || !collections.series) return null;
+    return collections.series.find(series => {
+      if (!series.data.itemList || !Array.isArray(series.data.itemList)) return false;
+      return series.data.itemList.some(entry => entry.item === title);
     });
-    return [...topicSet].sort();
   });
 
-  // Custom filters to get previous and next items in a series
-  eleventyConfig.addFilter("getPreviousInSeries", function(currentItem, collections) {
-    if (!currentItem || !currentItem.data || !currentItem.data.series) return null;
-    const series = currentItem.data.series;
-    
-    // Combine both articles and videos, then filter by series
-    const allItems = [...(collections.articles || []), ...(collections.videos || [])];
-    const seriesItems = allItems.filter(item => item && item.data && item.data.series === series);
-    
-    // Sort chronologically (oldest first) so that "Next" means a newer post.
-    // Wait, the collections.articles is sorted b.date - a.date (newest first).
-    // So we need to reverse it to chronological order for series step progression.
-    seriesItems.sort((a, b) => a.date - b.date);
-    
-    const currentIndex = seriesItems.findIndex(item => item.url === currentItem.url);
-    if (currentIndex > 0) {
-      return seriesItems[currentIndex - 1];
-    }
-    return null;
+  // Find which topic an article/video belongs to based on its title
+  eleventyConfig.addFilter("getTopicForTitle", function(title, collections) {
+    if (!title || !collections.topics) return null;
+    return collections.topics.find(topic => {
+      if (!topic.data.itemList || !Array.isArray(topic.data.itemList)) return false;
+      return topic.data.itemList.some(entry => entry.item === title);
+    });
   });
 
-  eleventyConfig.addFilter("getNextInSeries", function(currentItem, collections) {
-    if (!currentItem || !currentItem.data || !currentItem.data.series) return null;
-    const series = currentItem.data.series;
+  // Get adjacent items from an itemList array
+  eleventyConfig.addFilter("getAdjacentItem", function(itemList, currentTitle, direction, collections) {
+    if (!itemList || !Array.isArray(itemList) || !currentTitle) return null;
+    const currentIndex = itemList.findIndex(entry => entry.item === currentTitle);
+    if (currentIndex === -1) return null;
     
-    const allItems = [...(collections.articles || []), ...(collections.videos || [])];
-    const seriesItems = allItems.filter(item => item && item.data && item.data.series === series);
-    
-    seriesItems.sort((a, b) => a.date - b.date);
-    
-    const currentIndex = seriesItems.findIndex(item => item.url === currentItem.url);
-    if (currentIndex !== -1 && currentIndex < seriesItems.length - 1) {
-      return seriesItems[currentIndex + 1];
+    const adjacentIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
+    if (adjacentIndex >= 0 && adjacentIndex < itemList.length) {
+      const entry = itemList[adjacentIndex];
+      if (entry.type === 'article' && collections.articles) {
+        return collections.articles.find(a => a.data.title === entry.item);
+      } else if (entry.type === 'video' && collections.videos) {
+        return collections.videos.find(v => v.data.title === entry.item);
+      }
     }
     return null;
   });

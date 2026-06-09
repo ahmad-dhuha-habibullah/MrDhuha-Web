@@ -46,3 +46,32 @@
     </div>
 </article>
 {% endmacro %}
+
+{% macro paginationNav(pagination) %}
+    {% if pagination.hrefs.length > 1 %}
+    <div id="paginationControls" class="flex justify-center items-center gap-2 mt-8">
+        {% if pagination.href.previous %}
+            <a href="{{ pagination.href.previous }}" class="px-4 py-2 border border-border rounded-lg hover:bg-gray-50 text-text font-medium transition-colors">Sebelumnya</a>
+        {% endif %}
+        
+        <div class="flex items-center gap-1">
+            {% set totalPages = pagination.hrefs.length %}
+            {% set current = pagination.pageNumber + 1 %}
+            {% for href in pagination.hrefs %}
+                {% set i = loop.index %}
+                {% if i == 1 or i == totalPages or (i >= current - 1 and i <= current + 1) %}
+                    <a href="{{ href }}" class="w-10 h-10 flex items-center justify-center rounded-lg border {% if i == current %}bg-primary text-white border-primary font-bold{% else %}border-border text-text hover:bg-gray-50{% endif %} transition-colors">
+                        {{ i }}
+                    </a>
+                {% elif i == current - 2 or i == current + 2 %}
+                    <span class="px-2 text-textLight">...</span>
+                {% endif %}
+            {% endfor %}
+        </div>
+        
+        {% if pagination.href.next %}
+            <a href="{{ pagination.href.next }}" class="px-4 py-2 border border-border rounded-lg hover:bg-gray-50 text-text font-medium transition-colors">Selanjutnya</a>
+        {% endif %}
+    </div>
+    {% endif %}
+{% endmacro %}

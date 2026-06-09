@@ -2,20 +2,29 @@
 layout: layouts/base.njk
 ---
 
-<div class="bg-slate-50 dark:bg-slate-900/50 border-b border-border py-12">
-    <div class="container mx-auto px-4 lg:px-8">
+<div class="container mx-auto px-4 lg:px-8 py-4">
+    <nav class="flex items-center gap-2 text-sm text-textLight">
+        <a href="/" class="hover:text-primary transition-colors">Beranda</a>
+        <span><i data-lucide="chevron-right" class="w-4 h-4"></i></span>
+        <a href="/eksplorasi/" class="hover:text-primary transition-colors">Eksplorasi</a>
+        <span><i data-lucide="chevron-right" class="w-4 h-4"></i></span>
+        <span class="text-text font-medium truncate">{{ title }}</span>
+    </nav>
+</div>
+
+{% set bgImage = heroImage | default(thumbnail) %}
+<div class="relative bg-slate-900 text-white border-b border-white/10 py-16 overflow-hidden">
+    {% if bgImage %}
+    <div class="absolute inset-0 z-0">
+        <img src="{{ bgImage }}" alt="{{ title }}" class="w-full h-full object-cover opacity-20">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+    </div>
+    {% endif %}
+    <div class="container mx-auto px-4 lg:px-8 relative z-10">
         <div class="max-w-4xl mx-auto text-center">
-            <div class="flex items-center justify-center gap-2 text-sm text-textLight mb-6">
-                <a href="/" class="hover:text-primary">Beranda</a>
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                <a href="/eksplorasi/" class="hover:text-primary">Eksplorasi</a>
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                <span class="text-text font-semibold truncate">{{ title }}</span>
-            </div>
-            
-            <span class="inline-block bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4">{{ type | default('Visualisasi') }}</span>
-            <h1 class="text-3xl md:text-5xl font-extrabold text-text mb-6">{{ title }}</h1>
-            <p class="text-lg md:text-xl text-textLight font-serif">{{ description }}</p>
+            <span class="inline-block bg-blue-500/20 text-blue-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 border border-blue-400/30">{{ type | default('Visualisasi') }}</span>
+            <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-6">{{ title }}</h1>
+            <p class="text-lg md:text-xl text-slate-300 font-serif">{{ description }}</p>
 
             <div class="flex justify-center gap-2 mt-8">
                 <button onclick="window.openShareModal()" class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-text border border-border bg-surface rounded-lg hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-700 dark:hover:text-white transition-colors shadow-sm">
